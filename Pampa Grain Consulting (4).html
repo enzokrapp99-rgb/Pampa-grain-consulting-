@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pampa Grain Consulting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1D19;--bg2:#132620;--surface:#182F27;--surface2:#1D382F;
+  --line:rgba(239,230,210,.12);--line2:rgba(239,230,210,.22);
+  --gold:#D2A23A;--gold-soft:#E8C77A;--navy:#24456B;--navy-soft:#8DB0D6;
+  --text:#EFE6D2;--muted:#A9B8AE;--green:#4C8C66;--red:#D98466;
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:"Archivo",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color-scheme:dark;box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+:root[data-theme="dark"]{color-scheme:dark}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 84px);background:var(--bg)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,svg{max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+.sec{padding:100px 0;border-top:1px solid var(--line)}
+.sec.alt{background:var(--bg2)}
+.sec.first{padding-top:150px;border-top:0}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:400;letter-spacing:-.015em;line-height:1.08;margin:0}
+h2{font-size:clamp(2.1rem,4.6vw,3.4rem);max-width:17ch}
+h3{font-size:1.4rem;font-weight:500}
+h4{font-size:1.1rem;font-weight:500}
+p{margin:0}
+.lede{color:var(--muted);font-size:1.1rem;max-width:60ch}
+.head{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:end;margin-bottom:56px}
+.small-note{font-size:.82rem;color:var(--muted);margin-top:14px}
+@media(max-width:860px){.head{grid-template-columns:1fr;gap:18px;margin-bottom:38px}.sec{padding:76px 0}.sec.first{padding-top:120px}}
+
+/* nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:60;padding-top:env(safe-area-inset-top,0px);background:rgba(15,29,25,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:70px;gap:16px}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;flex-shrink:0}
+.brand-txt{line-height:1}
+.brand-txt b{display:block;font-family:var(--serif);font-weight:500;font-size:1.15rem}
+.brand-txt small{display:block;font-size:.64rem;color:var(--gold);letter-spacing:.34em;margin-top:4px}
+.links{display:flex;gap:18px;font-size:.88rem}
+.links a{text-decoration:none;color:var(--muted);padding:4px 0;border-bottom:1px solid transparent;transition:color .2s}
+.links a:hover{color:var(--text)}
+.links a.on{color:var(--text);border-bottom-color:var(--gold)}
+.actions{display:flex;gap:10px;align-items:center}
+.langs{display:flex;border:1px solid var(--line2);border-radius:999px;padding:3px}
+.langs button{background:none;border:0;color:var(--muted);font:600 .76rem var(--sans);padding:6px 10px;border-radius:999px;cursor:pointer;letter-spacing:.04em}
+.langs button.on{background:var(--gold);color:#1B1505}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--gold);color:#1B1505;border:0;border-radius:999px;padding:13px 24px;font:600 .95rem var(--sans);text-decoration:none;cursor:pointer;transition:background .2s}
+.btn:hover{background:var(--gold-soft)}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line2)}
+.btn.ghost:hover{border-color:var(--gold);background:rgba(210,162,58,.08)}
+.btn.sm{padding:9px 18px;font-size:.86rem}
+.btn:disabled{opacity:.6;cursor:wait}
+.menu-btn{display:none;background:none;border:1px solid var(--line2);color:var(--text);border-radius:10px;width:40px;height:38px;cursor:pointer;align-items:center;justify-content:center}
+@media(max-width:1280px){
+  .links{display:none}.menu-btn{display:inline-flex}
+  .links.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--bg2);padding:20px 24px 26px;border-bottom:1px solid var(--line);gap:14px;font-size:1.05rem;max-height:calc(100svh - 80px);overflow-y:auto}
+}
+@media(max-width:600px){.actions .btn{display:none}.brand-txt small{display:none}}
+
+/* hero */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:150px 0 0;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(1000px 520px at 22% 60%,rgba(36,69,107,.35),transparent 70%),radial-gradient(700px 400px at 85% 20%,rgba(210,162,58,.10),transparent 70%);pointer-events:none}
+.hero-map{position:absolute;left:50%;transform:translateX(-50%);bottom:40px;width:max(1300px,120%);pointer-events:none;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 30%,#000 80%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0%,#000 30%,#000 80%,transparent 100%)}
+.hero-copy{position:relative;z-index:2}
+.hero h1{font-size:clamp(2.8rem,7.4vw,6.2rem);font-weight:300;line-height:.98;max-width:12ch;letter-spacing:-.03em}
+.hero .lede{margin-top:28px;font-size:1.18rem;color:#C9D3CC}
+.ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:36px}
+.facts{position:relative;z-index:2;margin-top:auto;padding-top:90px}
+.facts-row{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line2);background:linear-gradient(to bottom,rgba(15,29,25,.4),rgba(15,29,25,.92))}
+.fact{padding:22px 20px 30px 0}
+.fact+.fact{padding-left:22px;border-left:1px solid var(--line)}
+.fact strong{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(1.6rem,3vw,2.3rem);color:var(--gold-soft);line-height:1.1}
+.fact span{font-size:.88rem;color:var(--muted)}
+@media(max-width:760px){.facts-row{grid-template-columns:1fr 1fr}.fact:nth-child(3){padding-left:0;border-left:0}.fact{border-top:1px solid var(--line)}.fact:nth-child(-n+2){border-top:0}}
+
+/* ticker */
+.ticker-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.ticker-head h3{font-size:1.6rem}
+.ticker-head span{color:var(--muted);font-size:.9rem}
+.ticker{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.tk{background:var(--bg);padding:20px 20px 22px}
+.tk .nm{color:var(--muted);font-size:.9rem}
+.tk .px{font-family:var(--serif);font-size:1.7rem;line-height:1.2;margin-top:4px}
+.tk .usd{font-size:.9rem;color:var(--muted)}
+@media(max-width:900px){.ticker{grid-template-columns:1fr 1fr}}
+.chg{display:inline-block;font:600 .76rem var(--sans);padding:3px 9px;border-radius:999px;margin-left:8px;vertical-align:middle;white-space:nowrap}
+.chg.up{background:rgba(76,140,102,.22);color:#8FD1A8}
+.chg.down{background:rgba(217,132,102,.18);color:#F0AA90}
+.chg.flat{background:rgba(239,230,210,.1);color:var(--muted)}
+.link{color:var(--gold-soft);text-decoration:none;font-weight:600;font-size:.95rem}
+.link:hover{text-decoration:underline}
+
+/* rows list (home services) */
+.rowlist{border-top:1px solid var(--line2)}
+.rowlist a{display:grid;grid-template-columns:1fr 1.4fr auto;gap:24px;align-items:center;padding:24px 0;border-bottom:1px solid var(--line);text-decoration:none;transition:padding .25s,background .25s}
+.rowlist a:hover{padding-left:12px;background:rgba(210,162,58,.04)}
+.rowlist h3{font-size:1.45rem}
+.rowlist p{color:var(--muted);font-size:.96rem}
+.rowlist .arr{color:var(--gold);font-size:1.3rem}
+@media(max-width:760px){.rowlist a{grid-template-columns:1fr auto}.rowlist p{grid-column:1/-1;grid-row:2}}
+
+.band{display:grid;grid-template-columns:1.4fr auto;gap:30px;align-items:center;padding:44px;border-radius:26px;background:linear-gradient(140deg,#1F3B5C,#1E4A35)}
+.band h2{font-size:clamp(1.8rem,3.6vw,2.6rem);max-width:20ch}
+.band p{color:#D3DBD5;margin-top:10px;max-width:52ch}
+@media(max-width:760px){.band{grid-template-columns:1fr;padding:30px 24px}}
+
+/* map */
+.land{stroke:#3B5A4E;stroke-width:2.5;stroke-linecap:round;fill:none}
+.arc{fill:none;stroke:var(--gold);stroke-width:1.4;stroke-linecap:round;opacity:.85;transition:opacity .3s,stroke-width .3s}
+.origin-dot{fill:var(--gold-soft)}
+.origin-pulse{fill:none;stroke:var(--gold);stroke-width:1.5;transform-box:fill-box;transform-origin:center;animation:pulse 2.6s ease-out infinite}
+@keyframes pulse{0%{transform:scale(.4);opacity:1}100%{transform:scale(2.6);opacity:0}}
+.dest-dot{fill:var(--navy-soft)}
+.dest-label{font:500 11px var(--sans);fill:var(--muted)}
+.hero-map .dest-label{display:none}
+.dest-wrap{display:grid;grid-template-columns:1fr 330px;gap:28px}
+.map-box{background:var(--bg);border:1px solid var(--line);border-radius:22px;padding:18px;overflow-x:auto}
+.map-box svg{display:block;width:100%;min-width:640px;height:auto}
+.dest{cursor:pointer}
+.dest .halo{fill:var(--navy-soft);opacity:0;transition:opacity .25s}
+.dest:hover .halo,.dest.on .halo{opacity:.25}
+.dest.on .dest-dot{fill:var(--gold-soft)}
+.dest.on .dest-label{fill:var(--text);font-weight:600}
+.dest:focus{outline:none}.dest:focus-visible .halo{opacity:.45}
+.map-i.sel .arc{opacity:.15}
+.map-i.sel .arc.on{opacity:1;stroke-width:2.4;stroke:var(--gold-soft)}
+.panel{background:var(--surface);border-radius:22px;padding:28px;display:flex;flex-direction:column}
+.panel .rank{font-size:.85rem;color:var(--gold)}
+.panel h3{font-size:2rem;margin:6px 0 4px}
+.panel .region{color:var(--muted);font-size:.92rem;margin-bottom:18px}
+.panel p{color:#D3DBD5}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.tag{font-size:.78rem;padding:4px 10px;border-radius:999px;border:1px solid var(--line2);color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:24px}
+.chip{background:none;border:1px solid var(--line2);color:var(--muted);border-radius:999px;padding:6px 12px;font:500 .82rem var(--sans);cursor:pointer}
+.chip.on,.chip:hover{border-color:var(--gold);color:var(--text)}
+@media(max-width:980px){.dest-wrap{grid-template-columns:1fr}}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:start}
+.about-text p+p{margin-top:18px}
+.about-text p{color:#C9D3CC;font-size:1.08rem;max-width:56ch}
+.mv{display:grid;gap:18px}
+.mv article{padding:30px 30px 32px;border-radius:4px 22px 22px 22px}
+.mv .m1{background:linear-gradient(140deg,#1E4A35,#173A2B)}
+.mv .m2{background:linear-gradient(140deg,#1F3B5C,#172C46)}
+.mv h3{margin-bottom:12px;color:var(--gold-soft)}
+.mv p{color:#DCE3DD}
+.goals{margin-top:72px;display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--line2)}
+.goal{padding:24px 22px 8px 0}
+.goal+.goal{padding-left:22px;border-left:1px solid var(--line)}
+.goal h4{margin-bottom:8px}
+.goal p{font-size:.93rem;color:var(--muted)}
+@media(max-width:980px){.about-grid{grid-template-columns:1fr;gap:40px}.goals{grid-template-columns:1fr 1fr}.goal{padding-left:0!important;border-left:0!important;border-bottom:1px solid var(--line);padding-bottom:22px}}
+@media(max-width:560px){.goals{grid-template-columns:1fr}}
+
+/* services */
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.svc{background:var(--bg);padding:36px 32px 34px;display:flex;flex-direction:column;text-decoration:none;transition:background .3s}
+.svc:hover{background:var(--surface)}
+.ico{width:38px;height:38px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;margin-bottom:22px}
+.svc h3{margin-bottom:10px}
+.svc p{color:var(--muted);font-size:.97rem}
+.svc .link{margin-top:auto;padding-top:22px}
+@media(max-width:960px){.svc-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.svc-grid{grid-template-columns:1fr}}
+.crumb{font-size:.9rem;color:var(--muted);margin-bottom:22px}
+.crumb a{color:var(--gold-soft);text-decoration:none}
+.sd-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:56px;margin-top:56px}
+.sd-grid h3{margin-bottom:16px}
+.checks{list-style:none;padding:0;margin:0}
+.checks li{padding:14px 0 14px 30px;border-top:1px solid var(--line);position:relative;color:#C9D3CC}
+.checks li::before{content:"";position:absolute;left:2px;top:21px;width:12px;height:7px;border-left:2px solid var(--gold);border-bottom:2px solid var(--gold);transform:rotate(-45deg)}
+.example{background:linear-gradient(150deg,#1F3B5C,#172C46);border-radius:22px;padding:30px}
+.example .lab{font-size:.85rem;color:var(--navy-soft);margin-bottom:10px}
+.example p{color:#E2E8EE;font-size:1.05rem}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:20px}
+.step{border-top:2px solid var(--gold);padding-top:16px}
+.step b{font-family:var(--serif);font-size:1.6rem;color:var(--gold-soft);font-weight:400}
+.step h4{margin:4px 0 6px}
+.step p{color:var(--muted);font-size:.93rem}
+@media(max-width:900px){.sd-grid{grid-template-columns:1fr;gap:40px}.steps{grid-template-columns:1fr 1fr}}
+
+/* clients */
+.clients{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line2)}
+.client{padding:30px 28px 32px 0;border-bottom:1px solid var(--line)}
+.client:not(:nth-child(3n+1)){padding-left:28px;border-left:1px solid var(--line)}
+.client h4{font-size:1.3rem;margin-bottom:4px}
+.client .sector{font-size:.82rem;color:var(--gold);margin-bottom:12px}
+.client p{color:var(--muted);font-size:.95rem}
+@media(max-width:900px){.clients{grid-template-columns:1fr 1fr}.client{padding-left:0!important;border-left:0!important;padding-right:20px}}
+@media(max-width:560px){.clients{grid-template-columns:1fr}}
+
+/* market */
+.mkt-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:56px}
+.stack{display:flex;height:64px;border-radius:14px;overflow:hidden;margin:18px 0 14px}
+.stack div{height:100%;display:flex;align-items:flex-end;padding:8px 10px;font-size:.78rem;font-weight:600;color:#10201A;white-space:nowrap;overflow:hidden}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.85rem;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:middle}
+.total-line{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.total-line strong{font-family:var(--serif);font-weight:300;font-size:clamp(3.2rem,7vw,5rem);line-height:1;color:var(--gold-soft)}
+.total-line span{color:var(--muted)}
+.crops{margin-top:40px}
+.crop{display:grid;grid-template-columns:1fr auto;gap:6px 18px;padding:20px 0;border-top:1px solid var(--line)}
+.crop h4{font-size:1.25rem}
+.crop .vol{font-family:var(--serif);font-size:1.4rem;text-align:right}
+.crop p{grid-column:1/-1;color:var(--muted);font-size:.94rem}
+.lists h3{margin-bottom:16px}
+.lists ul{list-style:none;padding:0;margin:0 0 36px}
+.lists li{padding:14px 0 14px 26px;border-top:1px solid var(--line);position:relative;color:#C9D3CC;font-size:.97rem}
+.lists li::before{content:"";position:absolute;left:2px;top:22px;width:8px;height:8px;border-radius:50%;background:var(--green)}
+.lists .risks li::before{background:var(--red)}
+.lists li b{color:var(--text);font-weight:600}
+@media(max-width:960px){.mkt-grid{grid-template-columns:1fr;gap:40px}}
+
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:18px;background:var(--bg)}
+table{width:100%;border-collapse:collapse;font-size:.96rem;min-width:520px}
+th{font:500 .85rem var(--sans);color:var(--muted);text-align:left;padding:16px 18px;border-bottom:1px solid var(--line2);white-space:nowrap}
+td{padding:16px 18px;border-bottom:1px solid var(--line);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+td.gr{font-family:var(--serif);font-size:1.12rem}
+.est{color:var(--muted);font-size:.8rem;margin-left:4px}
+.price-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:28px;align-items:start}
+.price-grid h3{margin-bottom:16px}
+.side{display:grid;gap:18px}
+.card{background:var(--surface);border-radius:20px;padding:24px}
+.card h4{margin-bottom:14px}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:.95rem}
+.kv span:first-child{color:var(--muted)}
+.big{font-family:var(--serif);font-size:2.2rem;color:var(--gold-soft);line-height:1.1}
+.srcs{list-style:none;padding:0;margin:0;display:grid;gap:8px;font-size:.9rem}
+.srcs a{color:var(--gold-soft)}
+@media(max-width:960px){.price-grid{grid-template-columns:1fr}}
+
+/* admin */
+.admin{margin-top:56px;border:1px dashed rgba(210,162,58,.5);border-radius:22px;padding:30px;background:rgba(210,162,58,.04)}
+.admin h3{margin-bottom:6px}
+.admin .sub{color:var(--muted);margin-bottom:22px;font-size:.95rem}
+.admin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.admin table input{padding:9px 10px;font-size:.92rem;min-width:90px}
+.admin .msg{margin-top:14px;font-size:.92rem}
+@media(max-width:760px){.admin-grid{grid-template-columns:1fr 1fr}.admin{padding:22px 16px}}
+
+/* calc */
+.calc{display:grid;grid-template-columns:1fr 1.1fr;border:1px solid var(--line);border-radius:26px;overflow:hidden}
+.calc-in{padding:36px;background:var(--surface)}
+.calc-out{padding:36px;background:linear-gradient(160deg,#1A3350,#132539)}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:.88rem;color:var(--muted);margin-bottom:7px}
+.hint{font-size:.78rem;color:var(--muted);margin-top:5px;opacity:.9}
+input,select,textarea{width:100%;background:var(--bg);color:var(--text);border:1px solid var(--line2);border-radius:12px;padding:12px 14px;font:500 1rem var(--sans)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
+select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--gold) 50%),linear-gradient(135deg,var(--gold) 50%,transparent 50%);background-position:calc(100% - 20px) 55%,calc(100% - 14px) 55%;background-size:6px 6px;background-repeat:no-repeat}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.outs{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.out-l{color:#C5D3E2;font-size:.92rem;margin-bottom:4px}
+.out-v{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,4.4vw,3.2rem);line-height:1;color:var(--gold-soft)}
+.out-v small{font-family:var(--sans);font-size:.9rem;color:var(--muted);margin-left:4px;font-weight:500}
+.out-ars{color:#C5D3E2;margin-top:6px;font-size:.95rem}
+.bar{display:flex;height:16px;border-radius:999px;overflow:hidden;margin:28px 0 10px;background:rgba(255,255,255,.08)}
+.bar div{height:100%;transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.blegend{display:flex;flex-wrap:wrap;gap:12px;font-size:.8rem;color:#C5D3E2}
+.blegend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
+.steps-calc{margin-top:22px}
+.sc{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid rgba(255,255,255,.1);font-size:.95rem}
+.sc span:first-child{color:#C5D3E2}
+.sc.res{font-weight:600;color:var(--text)}
+.sc.res span:first-child{color:var(--text)}
+.calc-note{font-size:.8rem;color:#9FB2C7;margin-top:18px}
+@media(max-width:900px){.calc{grid-template-columns:1fr}.calc-in,.calc-out{padding:26px 20px}}
+@media(max-width:420px){.two,.outs{grid-template-columns:1fr}}
+
+/* team / org / offices */
+.team{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.person{background:var(--surface);border-radius:22px;padding:32px 28px 34px}
+.avatar{width:84px;height:84px;border-radius:50%;display:grid;place-items:center;font:500 1.7rem var(--serif);color:#fff;border:2px solid var(--gold);margin-bottom:22px}
+.person .role{color:var(--gold);font-size:.92rem;font-weight:600;margin:6px 0 14px}
+.person p{color:var(--muted);font-size:.96rem}
+@media(max-width:900px){.team{grid-template-columns:1fr}}
+.org{margin-top:80px}
+.org h3{margin-bottom:28px}
+.tree{display:flex;flex-direction:column;align-items:center}
+.node{background:var(--surface2);border:1px solid var(--line2);border-radius:14px;padding:14px 20px;text-align:center;min-width:200px}
+.node b{display:block;font-weight:600;font-size:.98rem}
+.node span{font-size:.8rem;color:var(--muted)}
+.node.top{background:var(--navy);border-color:transparent}
+.node.dir{background:#1E4A35;border-color:transparent}
+.node.off{background:transparent;padding:12px 14px;min-width:0}
+.vline{width:1px;height:28px;background:var(--line2)}
+.branches{display:grid;grid-template-columns:1fr 2.4fr;gap:28px;width:100%;padding-top:28px;border-top:1px solid var(--line2)}
+.branch{display:flex;flex-direction:column;align-items:center;position:relative}
+.branch::before{content:"";position:absolute;top:-28px;left:50%;width:1px;height:28px;background:var(--line2)}
+.offices-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;width:100%;padding-top:24px;border-top:1px solid var(--line2)}
+.offices-row .node{position:relative}
+.offices-row .node::before{content:"";position:absolute;top:-25px;left:50%;width:1px;height:24px;background:var(--line2)}
+@media(max-width:860px){.branches{grid-template-columns:1fr;border-top:0;padding-top:0;gap:0}.branch::before{display:none}.branch{padding-top:28px}.offices-row{grid-template-columns:1fr 1fr;border-top:0}.offices-row .node::before{display:none}}
+.offices{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:18px}
+.office{background:var(--surface);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:6px}
+.office.hq{grid-row:span 2;background:linear-gradient(160deg,#1E4A35,#132a20);justify-content:flex-end;min-height:320px;position:relative}
+.office.hq .badge{position:absolute;top:24px;left:28px;font-size:.82rem;color:#1B1505;background:var(--gold);padding:4px 12px;border-radius:999px;font-weight:600}
+.office h3{font-size:1.5rem}
+.office.hq h3{font-size:2.4rem}
+.addr{font-size:.96rem;display:flex;gap:8px;align-items:flex-start}
+.addr svg{flex-shrink:0;margin-top:4px;stroke:var(--gold);fill:none;stroke-width:1.6}
+.office .focus{color:var(--muted);font-size:.93rem;margin-top:6px}
+@media(max-width:900px){.offices{grid-template-columns:1fr 1fr}.office.hq{grid-column:1/-1;grid-row:auto;min-height:240px}}
+@media(max-width:560px){.offices{grid-template-columns:1fr}}
+
+/* timeline */
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);position:relative}
+.timeline::before{content:"";position:absolute;top:21px;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--navy-soft))}
+.phase{padding-right:26px;position:relative}
+.phase .num{width:44px;height:44px;border-radius:50%;background:var(--bg2);border:2px solid var(--gold);display:grid;place-items:center;font:500 1.15rem var(--serif);color:var(--gold-soft);position:relative;z-index:1}
+.phase .months{margin:22px 0 6px;font-size:.88rem;color:var(--gold)}
+.phase h3{font-size:1.3rem;margin-bottom:16px}
+.phase ul{list-style:none;padding:0;margin:0}
+.phase li{color:var(--muted);font-size:.93rem;padding:9px 0;border-top:1px solid var(--line)}
+@media(max-width:900px){.timeline{grid-template-columns:1fr;gap:34px;padding-left:64px}.timeline::before{top:0;bottom:0;left:21px;width:2px;height:auto;right:auto;background:linear-gradient(180deg,var(--gold),var(--navy-soft))}.phase .num{position:absolute;left:-64px;top:0}.phase .months{margin-top:8px}}
+
+/* news */
+.news{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.nw{background:var(--surface);border-radius:20px;padding:26px 26px 28px;display:flex;flex-direction:column;gap:10px}
+.nw .meta{font-size:.82rem;color:var(--gold)}
+.nw h3{font-size:1.3rem}
+.nw p{color:var(--muted);font-size:.95rem}
+.nw .link{margin-top:auto;padding-top:8px}
+.nw.feat{grid-column:span 2;background:linear-gradient(150deg,#1E4A35,#173A2B)}
+.nw.feat h3{font-size:1.9rem}
+.nw.feat p{color:#D3DBD5;font-size:1.03rem}
+@media(max-width:960px){.news{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.news{grid-template-columns:1fr}.nw.feat{grid-column:auto}}
+
+/* glossary */
+.gsearch{max-width:420px;margin-bottom:34px}
+.gl{display:grid;grid-template-columns:1fr 1fr;gap:0 48px}
+.term{padding:20px 0;border-top:1px solid var(--line);break-inside:avoid}
+.term h4{font-size:1.3rem;color:var(--gold-soft)}
+.term .full{font-size:.85rem;color:var(--muted);margin:2px 0 8px}
+.term p{color:#C9D3CC;font-size:.96rem}
+.empty{color:var(--muted);padding:20px 0}
+@media(max-width:800px){.gl{grid-template-columns:1fr}}
+
+/* faq + form */
+.fc{display:grid;grid-template-columns:1fr 1fr;gap:64px}
+.faq details{border-top:1px solid var(--line)}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding:22px 40px 22px 0;font:500 1.12rem var(--serif);position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";position:absolute;right:8px;top:30px;width:10px;height:10px;border-right:2px solid var(--gold);border-bottom:2px solid var(--gold);transform:rotate(45deg);transition:transform .25s}
+.faq details[open] summary::after{transform:rotate(-135deg);top:34px}
+.faq details p{color:var(--muted);padding:0 0 24px;max-width:58ch}
+.form{background:var(--surface);border-radius:26px;padding:36px}
+.form h3{margin-bottom:6px;font-size:1.8rem}
+.form .sub{color:var(--muted);margin-bottom:26px}
+.form .btn{width:100%;margin-top:6px}
+.ok{display:none;margin-top:18px;padding:16px 18px;border-radius:14px;background:rgba(76,140,102,.18);border:1px solid rgba(143,209,168,.35);color:#CFEBD9;font-size:.95rem}
+.ok.show{display:block}
+.err{color:#F0AA90;font-size:.88rem;margin-top:10px;display:none}
+.err.show{display:block}
+.contact-meta{margin-top:28px;display:grid;gap:8px;color:var(--muted);font-size:.95rem}
+.contact-meta a{color:var(--gold-soft);text-decoration:none}
+@media(max-width:960px){.fc{grid-template-columns:1fr;gap:56px}.form{padding:26px 20px}}
+
+footer{border-top:1px solid var(--line);padding:56px 0 40px;background:#0C1714}
+.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px}
+.foot p,.foot li{color:var(--muted);font-size:.92rem}
+.foot ul{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+.foot ul a{text-decoration:none}.foot ul a:hover{color:var(--text)}
+.foot h4{font-size:1rem}
+.legal{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.82rem;color:var(--muted)}
+@media(max-width:800px){.foot{grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){.origin-pulse{animation:none}*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#/inicio" aria-label="Pampa Grain Consulting">
+      <svg width="40" height="40" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="none" stroke="#D2A23A" stroke-width="1.6"/><path d="M24 39V13" stroke="#D2A23A" stroke-width="1.6" stroke-linecap="round"/><g fill="#D2A23A"><ellipse cx="24" cy="11.5" rx="2" ry="3.4"/><ellipse cx="21" cy="17" rx="1.9" ry="3.3" transform="rotate(-32 21 17)"/><ellipse cx="27" cy="17" rx="1.9" ry="3.3" transform="rotate(32 27 17)"/><ellipse cx="21" cy="22.5" rx="1.9" ry="3.3" transform="rotate(-32 21 22.5)"/><ellipse cx="27" cy="22.5" rx="1.9" ry="3.3" transform="rotate(32 27 22.5)"/><ellipse cx="21" cy="28" rx="1.9" ry="3.3" transform="rotate(-32 21 28)"/><ellipse cx="27" cy="28" rx="1.9" ry="3.3" transform="rotate(32 27 28)"/></g></svg>
+      <span class="brand-txt"><b>Pampa Grain</b><small>CONSULTING</small></span>
+    </a>
+    <nav class="links" id="links" aria-label="Principal"></nav>
+    <div class="actions">
+      <div class="langs" role="group" aria-label="Idioma / Language / Idioma">
+        <button type="button" data-l="0">ES</button><button type="button" data-l="1">EN</button><button type="button" data-l="2">PT</button>
+      </div>
+      <a class="btn sm" id="navCta" href="#/contacto"></a>
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Menú" aria-expanded="false"><svg width="18" height="14" viewBox="0 0 18 14"><path d="M1 1h16M1 7h16M1 13h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"></main>
+<footer id="foot"></footer>
+
+<script>
+(function(){
+"use strict";
+let LI=0;
+try{const s=localStorage.getItem("pgc-lang");if(s!==null&&[0,1,2].includes(+s))LI=+s;}catch(e){}
+const t=(es,en,pt)=>[es,en,pt][LI];
+const x=a=>a[LI];
+const LOC=()=>["es-AR","en-US","pt-BR"][LI];
+const fmt=(n,d=0)=>new Intl.NumberFormat(LOC(),{minimumFractionDigits:d,maximumFractionDigits:d}).format(n);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const PIN='<svg width="14" height="16" viewBox="0 0 14 16"><path d="M7 15s5-5 5-9A5 5 0 0 0 2 6c0 4 5 9 5 9z"/><circle cx="7" cy="6" r="1.8"/></svg>';
+
+/* ================= DATA ================= */
+const GN={soja:["Soja","Soybeans","Soja"],maiz:["Maíz","Corn","Milho"],trigo:["Trigo","Wheat","Trigo"],girasol:["Girasol","Sunflower","Girassol"],cebada:["Cebada","Barley","Cevada"],sorgo:["Sorgo","Sorghum","Sorgo"]};
+const GK=["soja","maiz","trigo","girasol","cebada","sorgo"];
+const SNAP={fecha:"29/09/2026",tc:1513,
+  cbot:{fecha:"30/09/2026",soja:474.29,maiz:197.34,trigo:248.39},
+  grains:{
+    soja:{ars:560000,var:0.90,fob:508,dex:24},
+    maiz:{ars:295800,var:1.39,fob:222,dex:8.5},
+    trigo:{ars:346500,var:-0.16,fob:258,dex:5.5},
+    girasol:{ars:764065,var:null,fob:573,dex:4.5,est:true},
+    cebada:{ars:null,var:null,fob:235,dex:5.5,fobEst:true},
+    sorgo:{ars:295000,var:2.45,fob:215,dex:8.5,fobEst:true}
+  }};
+const clone=o=>JSON.parse(JSON.stringify(o));
+let PR=clone(SNAP), fromTeam=false;
+const nOrNull=v=>{if(v===null||v===undefined||v==="")return null;const n=parseFloat(String(v).replace(",","."));return isFinite(n)?n:null;};
+function normalize(d){const o=clone(SNAP);if(!d||typeof d!=="object")return o;
+  if(typeof d.fecha==="string")o.fecha=d.fecha.slice(0,20);
+  if(nOrNull(d.tc))o.tc=nOrNull(d.tc);
+  if(d.cbot){if(typeof d.cbot.fecha==="string")o.cbot.fecha=d.cbot.fecha.slice(0,20);["soja","maiz","trigo"].forEach(k=>{if(nOrNull(d.cbot[k])!==null)o.cbot[k]=nOrNull(d.cbot[k]);});}
+  if(d.grains)GK.forEach(k=>{const g=d.grains[k];if(!g)return;["ars","var","fob","dex"].forEach(f=>{if(f in g)o.grains[k][f]=nOrNull(g[f]);});o.grains[k].est=!!g.est;o.grains[k].fobEst=!!g.fobEst;});
+  return o;}
+const FOBBING=11;
+const fasOf=k=>{const g=PR.grains[k];return g.fob?g.fob*(1-(g.dex||0)/100)-FOBBING:null;};
+const usdOf=k=>{const g=PR.grains[k];return g.ars&&PR.tc?g.ars/PR.tc:null;};
+function chg(v){if(v===null||v===undefined)return "";const c=v>0?"up":v<0?"down":"flat";return `<span class="chg ${c}">${v>0?"▲":v<0?"▼":"="} ${fmt(Math.abs(v),2)}%</span>`;}
+
+const ICONS={
+ mercados:'<circle cx="20" cy="20" r="15"/><path d="M5 20h30M20 5c5 4 7 9 7 15s-2 11-7 15c-5-4-7-9-7-15s2-11 7-15z"/>',
+ estrategia:'<rect x="6" y="9" width="28" height="25" rx="3"/><path d="M6 16h28M13 5v7M27 5v7M13 23h4M23 23h4M13 28h4"/>',
+ inteligencia:'<path d="M6 34h28M10 28V18M17 28V11M24 28V20M31 28V8"/>',
+ contratos:'<path d="M11 5h13l7 7v23H11z"/><path d="M24 5v7h7M15 19h12M15 24h12M15 29h7"/>',
+ logistica:'<path d="M5 27h30l-4 7H9z"/><path d="M10 27V17h20v10M15 17v-6h10v6M20 11V5"/>',
+ alianzas:'<path d="M4 20l7-7 6 3 6-3 7 7M4 20l9 9c1 1 3 1 4 0M36 20l-9 9c-1 1-3 1-4 0l-6-6M17 16l-4 4c-1 1 0 3 1 3 1 1 2 0 3 0l3-3"/>'
+};
+const SV=[
+ {s:"mercados",n:["Apertura de mercados","Market development","Abertura de mercados"],
+  sh:["Identificamos destinos con demanda en expansión y asistimos a nuestros clientes en la concreción de la primera operación con cada nuevo comprador.","We identify destinations with growing demand and support the first deal with each new buyer.","Identificamos destinos com demanda crescente e acompanhamos a primeira operação com cada novo comprador."],
+  in:["Identificamos compradores en mercados no tradicionales, con prioridad en Asia, Medio Oriente y África, y acompañamos al cliente hasta el cierre de la primera operación con cada contraparte.","We look for buyers beyond the usual destinations, prioritizing Asia, the Middle East and Africa, and help you close the first deal with each one.","Buscamos compradores além dos destinos de sempre, priorizando Ásia, Oriente Médio e África, e ajudamos a fechar a primeira operação com cada um."],
+  inc:[["Estudio de demanda por país y producto","Country and product demand study","Estudo de demanda por país e produto"],["Requisitos sanitarios y de calidad del destino","Destination health and quality requirements","Requisitos sanitários e de qualidade do destino"],["Contacto con importadores y cámaras binacionales","Contact with importers and bilateral chambers","Contato com importadores e câmaras binacionais"],["Asistencia integral en la primera operación","Support during the first deal","Acompanhamento na primeira operação"]],
+  for:[["Cooperativas","Cooperatives","Cooperativas"],["Exportadoras medianas","Mid-size exporters","Exportadoras médias"],["Industria aceitera","Crushing industry","Indústria de óleo"]],
+  ex:["Una cooperativa santafesina comercializaba la totalidad de su maíz a través de exportadoras locales. Tras identificar demanda de la industria de alimento balanceado en Vietnam, se la vinculó con un importador y concretó un primer embarque de 25.000 t.","A Santa Fe cooperative sold all its corn to local exporters. We spotted feed demand in Vietnam, connected it with an importer, and it closed a first 25,000 t shipment.","Uma cooperativa de Santa Fe vendia todo o seu milho a exportadoras locais. Identificamos demanda de ração no Vietnã, conectamos com um importador e ela fechou um primeiro embarque de 25.000 t."]},
+ {s:"estrategia",n:["Estrategia de comercialización","Marketing strategy","Estratégia de comercialização"],
+  sh:["Determinamos el momento y la modalidad de venta en función de la ventana de cosecha, la logística portuaria y la evolución del precio internacional.","We define when and how to sell based on the harvest window, port logistics and world prices.","Definimos quando e como vender conforme a janela de colheita, a logística portuária e o preço internacional."],
+  in:["Diseñamos un plan de comercialización para cada campaña que define qué vender, en qué momento y a través de qué canal, a fin de reducir la exposición al precio de una única jornada.","We build a sales plan for your harvest: what to sell, when and through which channel, so you don't depend on a single day's price.","Montamos um plano de vendas para sua colheita: o que vender, quando e por qual canal, para não depender do preço de um único dia."],
+  inc:[["Análisis de ventanas de precio FAS","FAS price window analysis","Análise de janelas de preço FAS"],["Ventas escalonadas y futuros en A3 Mercados","Staggered sales and futures on A3 Mercados","Vendas escalonadas e futuros na A3 Mercados"],["Costos de flete y almacenaje","Freight and storage costs","Custos de frete e armazenagem"],["Plan de ventas por campaña","Season sales plan","Plano de vendas por safra"]],
+  for:[["Productores","Producers","Produtores"],["Acopios","Grain elevators","Armazéns"],["Cooperativas","Cooperatives","Cooperativas"]],
+  ex:["Un productor con 1.000 t de soja escalonó su venta en tres tramos en lugar de concentrarla en cosecha. Con un diferencial favorable de US$ 8/t, obtuvo un ingreso adicional cercano a US$ 8.000.","A producer with 1,000 t of soybeans split the sale into three moments instead of selling everything at harvest. With a US$ 8/t advantage, that meant about US$ 8,000 more.","Um produtor com 1.000 t de soja dividiu a venda em três momentos em vez de vender tudo na colheita. Com uma diferença de US$ 8/t a favor, ganhou cerca de US$ 8.000 a mais."]},
+ {s:"inteligencia",n:["Inteligencia de mercado","Market intelligence","Inteligência de mercado"],
+  sh:["Informes sobre precios FAS, derechos de exportación, saldos exportables y demanda externa para una toma de decisiones oportuna.","Reports on FAS prices, export duties, exportable surpluses and foreign demand so you can decide on time.","Relatórios de preços FAS, direitos de exportação, saldos exportáveis e demanda externa para decidir a tempo."],
+  in:["Proveemos la información necesaria para negociar con fundamento: precios, derechos de exportación, oferta y demanda, presentada de forma clara y orientada a la toma de decisiones.","We send you the information you need to negotiate: prices, export duties, supply and demand, explained in plain language.","Enviamos a informação que você precisa para negociar: preços, retenções, oferta e demanda, explicados de forma simples."],
+  inc:[["Informe semanal de precios de pizarra, FOB y FAS teórico","Weekly report on spot, FOB and theoretical FAS","Relatório semanal de pizarra, FOB e FAS teórico"],["Seguimiento de cambios en derechos de exportación","Tracking changes in export duties","Acompanhamento de mudanças nos direitos de exportação"],["Saldos exportables y ritmo de embarques","Exportable surpluses and shipment pace","Saldos exportáveis e ritmo de embarques"],["Alertas de demanda por destino","Demand alerts by destination","Alertas de demanda por destino"]],
+  for:[["Exportadoras","Exporters","Exportadoras"],["Productores","Producers","Produtores"],["Industria","Industry","Indústria"]],
+  ex:["Con soja a US$ 508 FOB, un derecho de exportación del 24% y US$ 11/t de gastos de embarque, el FAS teórico se ubica en torno a US$ 375/t. Si la pizarra cotiza US$ 370/t, existe margen para negociar una mejora de precio.","With soybeans at US$ 508 FOB, a 24% export duty and US$ 11 of costs, theoretical FAS is about US$ 375/t. If the spot market pays US$ 370, you know there's room to negotiate.","Com soja a US$ 508 FOB, um direito de exportação de 24% e US$ 11 de gastos, o FAS teórico fica em cerca de US$ 375/t. Se a pizarra paga US$ 370, você sabe que há margem para negociar."]},
+ {s:"contratos",n:["Negociación de contratos","Contract negotiation","Negociação de contratos"],
+  sh:["Asesoramos en la negociación de contratos de exportación FOB y CIF con compradores internacionales.","We support you in negotiating FOB and CIF export contracts with international buyers.","Acompanhamos a negociação de contratos de exportação FOB e CIF com compradores internacionais."],
+  in:["Analizamos cada cláusula para que el cliente conozca con precisión los riesgos que asume: Incoterm, calidad, período de embarque, condiciones de pago y arbitraje.","We review every clause so you know which risks you take on: Incoterm, quality, shipment period, payment terms and arbitration.","Revisamos cada cláusula para que você saiba quais riscos assume: Incoterm, qualidade, prazos de embarque, forma de pagamento e arbitragem."],
+  inc:[["Elección del Incoterm (FOB, CFR, CIF)","Choosing the Incoterm (FOB, CFR, CIF)","Escolha do Incoterm (FOB, CFR, CIF)"],["Contratos tipo GAFTA y FOSFA","GAFTA and FOSFA standard contracts","Contratos padrão GAFTA e FOSFA"],["Cartas de crédito y medios de pago","Letters of credit and payment methods","Cartas de crédito e meios de pagamento"],["Registro de la DJVE","DJVE registration","Registro da DJVE"]],
+  for:[["Exportadoras","Exporters","Exportadoras"],["Cooperativas","Cooperatives","Cooperativas"],["Importadores","Importers","Importadores"]],
+  ex:["En condición FOB el flete marítimo está a cargo del comprador; en CIF lo asume el vendedor, junto con el seguro. Para 30.000 t con destino a Argelia, un flete de US$ 35/t representa US$ 1.050.000 que deben quedar correctamente reflejados en el precio.","Under FOB the buyer pays ocean freight; under CIF you pay it along with insurance. For 30,000 t to Algeria, a US$ 35/t freight means US$ 1,050,000 that must be properly reflected in the price.","No FOB o comprador paga o frete marítimo; no CIF você paga junto com o seguro. Para 30.000 t à Argélia, um frete de US$ 35/t significa US$ 1.050.000 que precisam estar bem refletidos no preço."]},
+ {s:"logistica",n:["Logística portuaria","Port logistics","Logística portuária"],
+  sh:["Coordinamos con las terminales del Gran Rosario y realizamos el seguimiento de cada embarque hasta la liquidación de divisas.","We coordinate with Greater Rosario terminals and track every shipment through to settlement.","Coordenamos com os terminais da Grande Rosario e acompanhamos cada embarque até a liquidação."],
+  in:["Desde nuestra oficina de Rosario coordinamos transporte, terminal, buque y documentación para asegurar la llegada oportuna de la mercadería al puerto de carga.","From our Rosario office we coordinate trucks, terminal, vessel and paperwork so the cargo reaches the ship on time.","Do escritório de Rosario coordenamos caminhões, terminal, navio e documentação para que a carga chegue a tempo ao navio."],
+  inc:[["Cupos y turnos de descarga en terminal","Terminal unloading slots and appointments","Cotas e turnos de descarga no terminal"],["Permiso de embarque y documentación aduanera","Shipping permit and customs paperwork","Permissão de embarque e documentação aduaneira"],["Seguimiento del buque y control de calidad","Vessel tracking and quality control","Acompanhamento do navio e controle de qualidade"],["Liquidación de divisas","FX settlement","Liquidação de divisas"]],
+  for:[["Exportadoras","Exporters","Exportadoras"],["Traders","Traders","Traders"],["Cooperativas","Cooperatives","Cooperativas"]],
+  ex:["Un buque Panamax carga alrededor de 60.000 t. Si la mercadería no está disponible en término, el buque permanece en espera y se devenga demurrage, que puede rondar los US$ 20.000 diarios. Una adecuada programación de los arribos de camiones evita ese costo.","A Panamax vessel loads about 60,000 t. If cargo is late, the ship waits and demurrage is charged, which can be around US$ 20,000 per day. Coordinating trucks well avoids that cost.","Um navio Panamax carrega cerca de 60.000 t. Se a carga atrasa, o navio espera e paga-se demurrage, que pode chegar a US$ 20.000 por dia. Coordenar bem os caminhões evita esse custo."]},
+ {s:"alianzas",n:["Alianzas de largo plazo","Long-term partnerships","Parcerias de longo prazo"],
+  sh:["Desarrollamos relaciones comerciales estables con importadores estratégicos en los principales mercados compradores.","We build stable relationships with strategic importers in the main buying markets.","Construímos relações estáveis com importadores estratégicos nos principais mercados compradores."],
+  in:["Transformamos ventas puntuales en relaciones comerciales plurianuales, con volúmenes y mecanismos de fijación de precio acordados de antemano.","We move from one-off sales to multi-year relationships, with volumes and pricing rules agreed in advance.","Passamos de vendas pontuais para relações de vários anos, com volumes e regras de preço acordados previamente."],
+  inc:[["Contratos marco de mediano plazo","Medium-term framework agreements","Contratos-quadro de médio prazo"],["Misiones comerciales y ferias","Trade missions and fairs","Missões comerciais e feiras"],["Vínculo con cámaras binacionales","Ties with bilateral chambers","Vínculo com câmaras binacionais"],["Gestión de la relación posventa","After-sales relationship management","Acompanhamento da relação pós-venda"]],
+  for:[["Exportadoras","Exporters","Exportadoras"],["Industria aceitera","Crushing industry","Indústria de óleo"],["Cooperativas","Cooperatives","Cooperativas"]],
+  ex:["Un contrato marco a tres años con un importador de Arabia Saudita establece un volumen anual de 50.000 t de maíz y un precio por fórmula: futuros de Chicago más una prima acordada. Ambas partes obtienen previsibilidad.","A three-year framework agreement with a Saudi importer sets an annual volume of 50,000 t of corn and a formula price: Chicago plus an agreed premium. Both sides gain predictability.","Um contrato-quadro de três anos com um importador da Arábia Saudita fixa um volume anual de 50.000 t de milho e um preço por fórmula: Chicago mais um prêmio acordado. As duas partes ganham previsibilidade."]}
+];
+const STEPS=[[["Diagnóstico","Assessment","Diagnóstico"],["Relevamos el volumen operado, los productos y los objetivos comerciales del cliente.","We learn your volume, crops and goals.","Entendemos seu volume, seus grãos e seus objetivos."]],[["Propuesta","Proposal","Proposta"],["Presentamos un plan de trabajo con cronograma y presupuesto.","We present a work plan with timelines and costs.","Apresentamos um plano de trabalho com prazos e custos."]],[["Ejecución","Execution","Execução"],["Implementamos el plan en conjunto con el equipo del cliente.","We work alongside your team at every step.","Trabalhamos junto com sua equipe em cada etapa."]],[["Seguimiento","Follow-up","Acompanhamento"],["Evaluamos los resultados y ajustamos la estrategia.","We measure results and adjust the strategy.","Medimos resultados e ajustamos a estratégia."]]];
+
+const NEWS=[
+ {d:"22/09/2026",src:"Bolsa de Cereales de Buenos Aires · Infobae",u:"https://www.infobae.com/revista-chacra/2026/09/22/el-campo-argentino-va-por-otro-record-proyectan-1579-millones-de-toneladas-de-granos-para-la-nueva-campana/",
+  h:["La Bolsa de Cereales proyecta 157,9 Mt para la campaña 2026/27","The Buenos Aires Grain Exchange projects 157.9 Mt for 2026/27","A Bolsa de Cereales projeta 157,9 Mt para a safra 2026/27"],
+  p:["En su primera estimación de la campaña gruesa, la entidad prevé una cosecha en niveles récord y exportaciones agroindustriales por US$ 41.497 millones, un 6,9% más que el ciclo anterior.","In its first estimate for the summer crop season, the exchange expects a record-level harvest and agri-industrial exports of about US$ 41.5 billion, up 6.9% from last season.","Em sua primeira estimativa da safra de verão, a entidade prevê uma colheita em níveis recorde e exportações agroindustriais de US$ 41,5 bilhões, 6,9% acima do ciclo anterior."]},
+ {d:"18/09/2026",src:"Bolsa de Comercio de Rosario · La Nación",u:"https://www.lanacion.com.ar/economia/campo/aluvion-de-dolares-para-el-pais-la-cosecha-2027-aportara-un-record-de-us42200-millones-nid18092026/",
+  h:["La BCR estima exportaciones récord por US$ 42.200 millones","Rosario exchange forecasts record exports of US$ 42.2 billion","A BCR estima exportações recorde de US$ 42,2 bilhões"],
+  p:["Para la BCR la cosecha 2026/27 sería de 155,8 Mt, cerca de un 10% menos que el récord anterior, pero los mejores precios llevarían el valor exportado a un máximo histórico.","The BCR sees the 2026/27 harvest at 155.8 Mt, about 10% below last season's record, but better prices would push export value to an all-time high.","Para a BCR a colheita 2026/27 seria de 155,8 Mt, cerca de 10% abaixo do recorde anterior, mas os melhores preços levariam o valor exportado a um máximo histórico."]},
+ {d:"21/09/2026",src:"Examedia",u:"https://examedia.com.ar/portada/post/87902526",
+  h:["Argentina podría superar a Brasil como exportador de maíz","Argentina could overtake Brazil as a corn exporter","A Argentina pode superar o Brasil como exportadora de milho"],
+  p:["El complejo maíz alcanzaría exportaciones por US$ 10.100 millones, un máximo para el cereal, y el país podría convertirse por primera vez en el segundo exportador mundial de maíz.","The corn complex would reach exports of US$ 10.1 billion, a record for the crop, and Argentina could become the world's second-largest corn exporter for the first time.","O complexo milho alcançaria exportações de US$ 10,1 bilhões, um recorde para o cereal, e o país poderia se tornar pela primeira vez o segundo maior exportador mundial de milho."]},
+ {d:"27/09/2026",src:"Morel Vulliez",u:"https://www.morelvulliez.com.ar/noticias/2026/09/27/liquidacion-de-dolares-del-agro-en-2027-el-segundo-ano-mas-alto-en-los-registros/",
+  h:["Liquidación récord de divisas del agro para el cierre del año","Record agri FX inflows expected for year-end","Liquidação recorde de dólares do agro no fim do ano"],
+  p:["Con oferta abundante y un ritmo exportador regular, se proyecta una liquidación de US$ 9.458 millones para el último trimestre de 2026, récord para ese período.","With abundant supply and a steady export pace, FX inflows of US$ 9.458 billion are projected for Q4 2026, a record for that period.","Com oferta abundante e ritmo exportador regular, projeta-se uma liquidação de US$ 9,458 bilhões no último trimestre de 2026, recorde para o período."]},
+ {d:"03/06/2026",src:"Beccar Varela",u:"https://beccarvarela.com/novedades/reduccion-de-derechos-de-exportacion-para-el-sector-agroindustrial-decreto-n-423-2026/",
+  h:["Decreto 423/2026: cronograma de reducción de derechos de exportación","Decree 423/2026: the export duty reduction schedule","Decreto 423/2026: o cronograma de redução das retenções"],
+  p:["Las alícuotas de trigo y cebada se redujeron del 7,5% al 5,5%. La soja se mantiene en 24% durante 2026 y descenderá al 21% en diciembre de 2027 y al 15% en diciembre de 2028; maíz y sorgo pasarán del 8,5% al 7,5% y luego al 5,5%.","Wheat and barley dropped from 7.5% to 5.5%. Soybeans stay at 24% in 2026, falling to 21% by December 2027 and 15% by December 2028; corn and sorghum go from 8.5% to 7.5% and then 5.5%.","Trigo e cevada caíram de 7,5% para 5,5%. A soja se mantém em 24% em 2026 e cairá para 21% em dezembro de 2027 e 15% em dezembro de 2028; milho e sorgo passam de 8,5% para 7,5% e depois 5,5%."]},
+ {d:"22/09/2026",src:"Prensa Latina",u:"https://www.prensa-latina.cu/2026/09/22/preve-argentina-cosecha-record-de-granos-en-temporada-26-27/",
+  h:["India, destino clave del aceite de girasol argentino","India, a key market for Argentine sunflower oil","Índia, destino-chave do óleo de girassol argentino"],
+  p:["India concentra cerca del 30% de las exportaciones de aceite de girasol, seguida por Chile, Brasil y México. En sorgo crecen las ventas a Asia, con Vietnam entre los principales compradores.","India takes about 30% of sunflower oil exports, followed by Chile, Brazil and Mexico. Sorghum sales to Asia are growing, with Vietnam among the main buyers.","A Índia concentra cerca de 30% das exportações de óleo de girassol, seguida por Chile, Brasil e México. No sorgo crescem as vendas para a Ásia, com o Vietnã entre os principais compradores."]}
+];
+
+const GLOS=[
+ ["A3 Mercados","",["Mercado argentino de futuros y opciones con sede en Rosario, surgido de la fusión de Matba Rofex y MAE. Allí se negocian coberturas de precio para granos.","Argentina's futures and options exchange, based in Rosario, formed by the merger of Matba Rofex and MAE. Grain prices are hedged there.","Mercado argentino de futuros e opções, com sede em Rosario, criado pela fusão de Matba Rofex e MAE. Ali se fazem coberturas de preço de grãos."]],
+ ["CBOT","Chicago Board of Trade",["Mercado de futuros de Chicago, referencia internacional de precios para soja, maíz y trigo.","Chicago futures market. The world price benchmark for soybeans, corn and wheat.","Mercado de futuros de Chicago. É a referência mundial de preço para soja, milho e trigo."]],
+ ["CFR","Cost and Freight",["El vendedor paga el flete marítimo hasta el puerto de destino, pero el riesgo pasa al comprador cuando la mercadería se carga en el buque.","The seller pays ocean freight to the destination port, but risk passes to the buyer once the goods are loaded on the vessel.","O vendedor paga o frete marítimo até o porto de destino, mas o risco passa ao comprador quando a mercadoria é carregada no navio."]],
+ ["CIF","Cost, Insurance and Freight",["Similar a CFR, con la diferencia de que el vendedor también contrata el seguro de la mercadería durante el tránsito.","Same as CFR, but the seller also buys cargo insurance for the voyage.","Igual ao CFR, mas o vendedor também contrata o seguro da mercadoria durante a viagem."]],
+ ["DEX","Derechos de exportación",["También denominados retenciones. Tributo que grava la exportación y se calcula sobre el valor FOB. En 2026 las alícuotas son: soja 24%, maíz y sorgo 8,5%, trigo y cebada 5,5%.","Also called retenciones. A tax calculated on the FOB value. In 2026 soybeans pay 24%, corn and sorghum 8.5%, wheat and barley 5.5%.","Também chamados de retenções. É um tributo calculado sobre o valor FOB. Em 2026 a soja paga 24%, milho e sorgo 8,5% e trigo e cevada 5,5%."]],
+ ["Demurrage","",["Penalidad diaria que se abona al armador cuando el buque excede el tiempo pactado para la carga o descarga (laytime).","Daily penalty paid to the shipowner when the vessel waits longer than agreed to load or unload.","Multa diária paga ao armador quando o navio espera mais do que o combinado para carregar ou descarregar."]],
+ ["DJVE","Declaración Jurada de Venta al Exterior",["Registro obligatorio de cada venta de granos al exterior (Ley 21.453). Fija la alícuota de derechos de exportación vigente a la fecha de su registro, siempre que el embarque se realice dentro del plazo previsto.","Mandatory registration of every grain export sale (Law 21,453). It locks in the export duty rate in force on the registration date, provided the goods ship within the set period.","Registro obrigatório de cada venda de grãos ao exterior (Lei 21.453). Fixa a alíquota de direito de exportação vigente na data do registro, desde que o embarque ocorra dentro do prazo previsto."]],
+ ["FAS","Free Alongside Ship",["Mercadería puesta al costado del buque. En granos, el FAS teórico surge de deducir del FOB los derechos de exportación y los gastos de embarque, y representa la capacidad de pago del exportador.","Goods placed alongside the vessel. In grains, theoretical FAS is FOB minus export duties and loading costs: what the exporter can afford to pay.","Mercadoria colocada ao lado do navio. Em grãos, o FAS teórico é o FOB menos os direitos de exportação e os gastos de embarque: o que o exportador pode pagar."]],
+ ["FOB","Free On Board",["El vendedor entrega la mercadería cargada a bordo del buque en el puerto de embarque convenido. A partir de ese momento, el flete y los riesgos corren por cuenta del comprador.","The seller delivers the goods loaded on board at the port of shipment. From then on, freight and risk are the buyer's.","O vendedor entrega a mercadoria carregada a bordo no porto de embarque. A partir daí, frete e risco são do comprador."]],
+ ["Fobbing","",["Gastos de traslado del grano desde el camión hasta la bodega del buque: recepción, elevación, uso de terminal y comisiones.","Costs of moving grain from the truck into the ship's hold: receiving, elevation, terminal use and fees.","Gastos de levar o grão do caminhão ao porão do navio: recepção, elevação, uso do terminal e comissões."]],
+ ["Gran Rosario","",["Complejo portuario ubicado sobre el río Paraná, en el sur de la provincia de Santa Fe; uno de los principales nodos agroexportadores del mundo.","Port complex on the Paraná River in southern Santa Fe. One of the world's main agri-export hubs.","Complexo portuário no rio Paraná, no sul de Santa Fe. É um dos principais polos agroexportadores do mundo."]],
+ ["Harina proteica","",["Subproducto de la molienda de soja o girasol destinado a la alimentación animal. La Argentina es uno de los principales exportadores mundiales de harina de soja.","By-product of crushing soybeans or sunflower, used as animal feed. Argentina is one of the largest soybean meal exporters.","Subproduto do esmagamento de soja ou girassol usado na alimentação animal. A Argentina é um dos maiores exportadores de farelo de soja."]],
+ ["Incoterms","",["Reglas de la Cámara de Comercio Internacional (CCI) que delimitan los costos y riesgos a cargo del vendedor y del comprador.","International Chamber of Commerce rules defining which costs and risks the seller and the buyer each take on.","Regras da Câmara de Comércio Internacional que definem quais custos e riscos cabem ao vendedor e quais ao comprador."]],
+ ["Liquidación de divisas","",["Ingreso y negociación en el mercado de cambios de las divisas que percibe el exportador por sus ventas al exterior.","Bringing in and selling, on the FX market, the dollars the exporter receives from foreign sales.","Ingresso e venda no mercado de câmbio dos dólares que o exportador recebe por suas vendas ao exterior."]],
+ ["Originación","",["Adquisición de granos directamente a productores o acopiadores para su posterior exportación o industrialización.","Buying grain directly from farmers or elevators to later export or process it.","Compra de grãos diretamente de produtores ou armazéns para depois exportá-los ou industrializá-los."]],
+ ["Panamax","",["Buque de las dimensiones máximas admitidas por el antiguo Canal de Panamá. En graneles agrícolas carga alrededor de 60.000 t.","Vessel of the maximum size that fit the old Panama Canal. In grains it loads around 60,000 t.","Navio do tamanho máximo que passava pelo antigo Canal do Panamá. Em grãos carrega cerca de 60.000 t."]],
+ ["Permiso de embarque","",["Destinación de exportación oficializada ante la Dirección General de Aduanas (ARCA) que autoriza la salida de la mercadería del territorio aduanero.","Export entry filed with Customs (ARCA) that authorizes the goods to leave the country.","Destinação de exportação registrada na Aduana (ARCA) que autoriza a saída da mercadoria do país."]],
+ ["Pizarra","Precio de pizarra",["Precio de referencia diario que publica una Cámara Arbitral de Cereales (por ejemplo, la de Rosario) para mercadería disponible con pago contado.","Daily reference price published by a grain arbitration chamber (for example, Rosario) for spot delivery and cash payment.","Preço de referência diário publicado por uma Câmara Arbitral de Cereais (por exemplo, Rosario) para mercadoria disponível e pagamento à vista."]],
+ ["Prima","",["Diferencial entre el precio FOB en un puerto determinado y el precio de los futuros de Chicago. Puede ser positiva o negativa.","Difference between the FOB price at a port and the Chicago futures price. It can be positive or negative.","Diferença entre o preço FOB em um porto e o preço futuro de Chicago. Pode ser positiva ou negativa."]],
+ ["Saldo exportable","",["Volumen disponible para exportación una vez cubiertos el consumo interno, la semilla y los stocks de reserva.","What is left to export after covering domestic use, seed and stocks.","O que sobra para exportar depois de cobrir o consumo interno, a semente e os estoques."]],
+ ["Zona núcleo","",["Región agrícola de mayor productividad del país: sur de Santa Fe, sudeste de Córdoba y norte de Buenos Aires.","Argentina's most productive farming region: southern Santa Fe, southeastern Córdoba and northern Buenos Aires.","Região agrícola mais produtiva do país: sul de Santa Fe, sudeste de Córdoba e norte de Buenos Aires."]]
+];
+
+const D=[
+ {k:"vn",ll:[106,16],n:["Vietnam","Vietnam","Vietnã"],r:["Sudeste asiático","Southeast Asia","Sudeste Asiático"],tg:[GN.maiz,GN.soja,GN.trigo],
+  d:["Principal comprador considerando en conjunto soja, maíz, trigo, girasol, cebada y sorgo. La demanda de maíz crece impulsada por la industria de alimento balanceado y la avícola.","The top buyer when soybeans, corn, wheat, sunflower, barley and sorghum are counted together. Corn demand is growing for the feed and poultry industries.","O principal comprador quando se somam soja, milho, trigo, girassol, cevada e sorgo. A demanda de milho cresce para a indústria de ração e a avicultura."]},
+ {k:"cn",ll:[114,32],n:["China","China","China"],r:["Asia oriental","East Asia","Ásia Oriental"],tg:[["Aceite de soja","Soybean oil","Óleo de soja"],["Aceite de girasol","Sunflower oil","Óleo de girassol"],["Harinas proteicas","Protein meals","Farelos proteicos"]],
+  d:["Principal destino de aceites de soja y girasol, además de subproductos proteicos.","Main destination for soybean and sunflower oils, as well as protein meals.","Principal destino dos óleos de soja e girassol, além de subprodutos proteicos."]},
+ {k:"sa",ll:[45,24],n:["Arabia Saudita","Saudi Arabia","Arábia Saudita"],r:["Medio Oriente","Middle East","Oriente Médio"],tg:[GN.maiz,GN.soja,GN.cebada],
+  d:["Demanda sostenida de maíz, soja y cebada en Medio Oriente.","Steady demand for corn, soybeans and barley in the Middle East.","Demanda constante de milho, soja e cevada no Oriente Médio."]},
+ {k:"br",ll:[-47,-15],n:["Brasil","Brazil","Brasil"],r:["Mercosur","Mercosur","Mercosul"],tg:[GN.trigo,GN.cebada],
+  d:["Mercado regional clave para trigo y cebada y, a la vez, principal competidor de la Argentina en maíz.","Key regional market for wheat and barley. At the same time, Argentina's main competitor in corn.","Mercado regional-chave para trigo e cevada. Ao mesmo tempo, é o principal concorrente argentino no milho."]},
+ {k:"dz",ll:[3,33],n:["Argelia","Algeria","Argélia"],r:["Norte de África","North Africa","Norte da África"],tg:[GN.maiz,GN.soja,GN.cebada],
+  d:["Demanda sostenida de maíz, soja y cebada en el norte de África.","Steady demand for corn, soybeans and barley in North Africa.","Demanda constante de milho, soja e cevada no Norte da África."]},
+ {k:"id",ll:[110,-7],n:["Indonesia","Indonesia","Indonésia"],r:["Sudeste asiático","Southeast Asia","Sudeste Asiático"],tg:[GN.maiz],
+  d:["Demanda creciente de maíz para alimento balanceado y avicultura.","Growing corn demand for animal feed and poultry.","Demanda crescente de milho para ração e avicultura."]},
+ {k:"pe",ll:[-76,-10],n:["Perú","Peru","Peru"],r:["Sudamérica","South America","América do Sul"],tg:[["Granos","Grains","Grãos"],["Subproductos","By-products","Subprodutos"]],
+  d:["Destino regional que integra el grupo de los diez principales compradores de granos y subproductos argentinos.","Regional destination within the top 10 buyers of Argentine grains and by-products.","Destino regional entre os 10 maiores compradores de grãos e subprodutos argentinos."]},
+ {k:"my",ll:[102,3],n:["Malasia","Malaysia","Malásia"],r:["Sudeste asiático","Southeast Asia","Sudeste Asiático"],tg:[GN.maiz],
+  d:["Demanda creciente de maíz para la industria de alimento balanceado y la avicultura.","Growing corn demand from the feed and poultry industries.","Demanda crescente de milho para a indústria de ração e a avicultura."]},
+ {k:"in",ll:[78,21],n:["India","India","Índia"],r:["Asia meridional","South Asia","Sul da Ásia"],tg:[["Aceite de soja","Soybean oil","Óleo de soja"],["Aceite de girasol","Sunflower oil","Óleo de girassol"],["Harinas proteicas","Protein meals","Farelos proteicos"]],
+  d:["Junto con China, principal destino de los aceites de soja y girasol. Absorbe cerca del 30% de las exportaciones argentinas de aceite de girasol.","Together with China, the main destination for soybean and sunflower oils. It buys about 30% of Argentina's sunflower oil exports.","Junto com a China, principal destino dos óleos de soja e girassol. Compra cerca de 30% do óleo de girassol argentino."]},
+ {k:"eg",ll:[31,27],n:["Egipto","Egypt","Egito"],r:["Norte de África","North Africa","Norte da África"],tg:[["Granos","Grains","Grãos"],["Subproductos","By-products","Subprodutos"]],
+  d:["Destino del norte de África que integra el grupo de los diez principales compradores de granos argentinos.","North African destination within the top 10 buyers of Argentine grain.","Destino do Norte da África entre os 10 maiores compradores de grãos argentinos."]}
+];
+
+/* ================= MAP ================= */
+const LAND=[
+ [[-168,66],[-162,70],[-140,70],[-125,70],[-95,72],[-80,73],[-62,66],[-55,52],[-66,45],[-70,42],[-76,35],[-81,31],[-80,25],[-83,29],[-90,30],[-97,27],[-97,21],[-92,18],[-87,21],[-88,15],[-83,10],[-79,9],[-82,8],[-86,12],[-92,14],[-105,20],[-110,24],[-112,30],[-118,33],[-124,40],[-124,48],[-133,55],[-150,60],[-165,60]],
+ [[-50,60],[-42,60],[-20,70],[-20,80],[-60,82],[-70,77],[-55,68]],
+ [[-79,9],[-72,12],[-62,10],[-52,5],[-35,-5],[-39,-15],[-41,-22],[-48,-27],[-53,-34],[-58,-38],[-65,-42],[-68,-50],[-68,-55],[-72,-52],[-75,-45],[-73,-37],[-71,-30],[-70,-18],[-76,-14],[-81,-5],[-80,1],[-77,7]],
+ [[-10,36],[-9,43],[-2,44],[-5,48],[2,51],[8,54],[5,58],[5,62],[14,69],[25,71],[45,68],[70,73],[100,78],[140,73],[180,68],[180,65],[170,60],[160,55],[142,47],[135,43],[128,38],[126,35],[121,31],[122,25],[110,20],[108,15],[109,11],[104,9],[100,13],[101,4],[104,1],[98,8],[98,16],[92,22],[88,22],[80,15],[78,8],[73,17],[68,24],[60,25],[57,24],[59,22],[55,17],[52,16],[43,13],[39,21],[35,28],[34,31],[36,36],[30,36],[27,40],[22,37],[20,40],[16,38],[18,40],[13,45],[12,44],[15,40],[10,44],[3,43],[0,39]],
+ [[-17,21],[-16,28],[-10,30],[-6,36],[10,37],[11,33],[20,31],[32,31],[34,28],[43,12],[51,12],[42,-1],[40,-10],[35,-24],[32,-29],[20,-35],[18,-30],[12,-17],[13,-6],[9,-1],[9,4],[0,5],[-8,4],[-13,8],[-17,14]],
+ [[44,-25],[47,-25],[50,-15],[49,-12],[44,-17]],
+ [[114,-22],[122,-18],[130,-12],[137,-12],[141,-11],[146,-19],[153,-26],[150,-37],[141,-38],[135,-35],[129,-32],[116,-35],[114,-26]],
+ [[95,5],[98,4],[106,-6],[104,-6],[100,-2]],[[109,1],[117,7],[119,1],[116,-4],[110,-3]],[[105,-6],[114,-7],[114,-8.5],[106,-7.5]],
+ [[131,-1],[141,-3],[150,-10],[141,-9],[135,-4]],[[130,31],[135,34],[141,36],[142,43],[140,41],[132,34]],[[-5,50],[1,51],[0,53],[-3,58],[-6,56]],
+ [[120,18],[122,18],[126,7],[122,7]],[[172,-35],[178,-38],[174,-41],[167,-46],[171,-44]],[[-24,64],[-14,64],[-14,66],[-22,66]]
+];
+const W=1000,H=389,P=(lo,la)=>[(lo+180)/360*W,(80-la)/140*H];
+function inside(x,y,p){let c=false;for(let i=0,j=p.length-1;i<p.length;j=i++){const xi=p[i][0],yi=p[i][1],xj=p[j][0],yj=p[j][1];if(((yi>y)!==(yj>y))&&(x<(xj-xi)*(y-yi)/(yj-yi)+xi))c=!c;}return c;}
+let DOTS="";for(let la=78;la>=-56;la-=2.5)for(let lo=-178;lo<=180;lo+=2.5)if(LAND.some(p=>inside(lo,la,p))){const[a,b]=P(lo,la);DOTS+=`M${a.toFixed(1)} ${b.toFixed(1)}h0`;}
+const ORIGIN=[-60.6,-33],NS="http://www.w3.org/2000/svg";
+const mk=(tg,a)=>{const e=document.createElementNS(NS,tg);for(const k in a)e.setAttribute(k,a[k]);return e;};
+function arcD(a,b){const[x0,y0]=P(...a),[x1,y1]=P(...b),d=Math.hypot(x1-x0,y1-y0);return`M${x0.toFixed(1)} ${y0.toFixed(1)}Q${((x0+x1)/2).toFixed(1)} ${(Math.min(y0,y1)-d*.32).toFixed(1)} ${x1.toFixed(1)} ${y1.toFixed(1)}`;}
+let curDest="vn";
+function buildMap(svg,interactive){
+  svg.appendChild(mk("path",{d:DOTS,class:"land"}));
+  const arcs={},groups={};
+  D.forEach(d=>{arcs[d.k]=svg.appendChild(mk("path",{d:arcD(ORIGIN,d.ll),class:"arc"}));});
+  const[ox,oy]=P(...ORIGIN);
+  svg.appendChild(mk("circle",{cx:ox,cy:oy,r:6,class:"origin-pulse"}));
+  svg.appendChild(mk("circle",{cx:ox,cy:oy,r:4.5,class:"origin-dot"}));
+  D.forEach(d=>{const[px,py]=P(...d.ll),g=mk("g",{class:"dest"});
+    g.appendChild(mk("circle",{cx:px,cy:py,r:14,class:"halo"}));g.appendChild(mk("circle",{cx:px,cy:py,r:4,class:"dest-dot"}));
+    const left=d.k==="pe"||d.k==="br",tx=mk("text",{x:left?px-9:px+9,y:py+4,class:"dest-label","text-anchor":left?"end":"start"});tx.textContent=x(d.n);g.appendChild(tx);
+    if(interactive){g.setAttribute("tabindex","0");g.setAttribute("role","button");g.addEventListener("click",()=>selDest(d.k));g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();selDest(d.k);}});}
+    svg.appendChild(g);groups[d.k]=g;});
+  const ol=mk("text",{x:ox+8,y:oy+16,class:"dest-label"});ol.textContent=t("Gran Rosario","Greater Rosario","Grande Rosario");svg.appendChild(ol);
+  return{arcs,groups};
+}
+let DM=null;
+function selDest(k){curDest=k;const i=D.findIndex(d=>d.k===k),d=D[i];if(!DM)return;
+  document.getElementById("destMap").classList.add("sel");
+  Object.entries(DM.arcs).forEach(([kk,p])=>p.classList.toggle("on",kk===k));
+  Object.entries(DM.groups).forEach(([kk,g])=>{g.classList.toggle("on",kk===k);g.setAttribute("aria-pressed",kk===k);});
+  document.querySelectorAll("#chips .chip").forEach(c=>c.classList.toggle("on",c.dataset.k===k));
+  document.getElementById("dRank").textContent=t("Ranking de destinos","Top 10 destinations","Top 10 destinos")+" · #"+(i+1);
+  document.getElementById("dName").textContent=x(d.n);
+  document.getElementById("dRegion").textContent=x(d.r);
+  document.getElementById("dDesc").textContent=x(d.d);
+  document.getElementById("dTags").innerHTML=d.tg.map(g=>`<span class="tag">${x(g)}</span>`).join("");
+}
+
+/* ================= SHARED BITS ================= */
+const NAV=[["nosotros",["Nosotros","About","Sobre nós"]],["equipo",["Equipo","Team","Equipe"]],["servicios",["Servicios","Services","Serviços"]],["mercado",["Mercado","Market","Mercado"]],["precios",["Precios","Prices","Preços"]],["calculadora",["Calculadora FAS","FAS calculator","Calculadora FAS"]],["noticias",["Noticias","News","Notícias"]],["glosario",["Glosario","Glossary","Glossário"]],["contacto",["Contacto","Contact","Contato"]]];
+const head=(h,l)=>`<div class="head"><h2>${h}</h2><p class="lede">${l}</p></div>`;
+const svcIcon=s=>`<svg class="ico" viewBox="0 0 40 40" aria-hidden="true">${ICONS[s]}</svg>`;
+function newsCard(n,feat){return `<article class="nw${feat?" feat":""}"><div class="meta">${n.d} · ${esc(n.src)}</div><h3>${x(n.h)}</h3><p>${x(n.p)}</p><a class="link" href="${n.u}" target="_blank" rel="noopener">${t("Leer el artículo completo","Read the full story","Ler a matéria completa")} ↗</a></article>`;}
+function tickerHTML(){
+  const ks=["soja","maiz","trigo","girasol","sorgo"];
+  return `<div class="ticker">${ks.map(k=>{const g=PR.grains[k],u=usdOf(k);return `<div class="tk"><div class="nm">${x(GN[k])}${g.est?' <span class="est">(e)</span>':""}${chg(g.var)}</div><div class="px">${g.ars?"$ "+fmt(g.ars):"s/c"}</div><div class="usd">${u?"US$ "+fmt(u,2)+"/t":""}</div></div>`;}).join("")}</div>`;
+}
+
+/* ================= PAGES ================= */
+const PAGES={};
+PAGES.inicio=()=>`
+<section class="hero">
+  <svg class="hero-map" id="heroMap" viewBox="0 0 1000 389" aria-hidden="true"></svg>
+  <div class="wrap hero-copy">
+    <h1>${t("Del campo argentino a más de 130 mercados.","From Argentine fields to more than 130 markets.","Do campo argentino para mais de 130 mercados.")}</h1>
+    <p class="lede">${t("Consultora especializada en comercio exterior de granos y oleaginosas, con sede en Mendoza. Asesoramos a productores, cooperativas y exportadores desde la ventana de cosecha hasta la liquidación de divisas de cada embarque.","We are a grain and oilseed trade consultancy based in Mendoza, Argentina. We support producers, cooperatives and exporters from the harvest window to the final settlement of every shipment.","Somos uma consultoria de comércio exterior de grãos e oleaginosas com sede em Mendoza. Acompanhamos produtores, cooperativas e exportadores desde a janela de colheita até a liquidação de cada embarque.")}</p>
+    <div class="ctas"><a class="btn" href="#/contacto">${t("Contactar a un asesor","Talk to our team","Falar com a equipe")}</a><a class="btn ghost" href="#/calculadora">${t("Calcular precio FAS","Calculate FAS price","Calcular preço FAS")}</a></div>
+  </div>
+  <div class="facts"><div class="wrap facts-row">
+    <div class="fact"><strong>+165 Mt</strong><span>${t("cosecha proyectada 2025/26","projected 2025/26 harvest","colheita projetada 2025/26")}</span></div>
+    <div class="fact"><strong>60,7 Mt</strong><span>${t("exportadas en el 1er semestre 2026","exported in H1 2026","exportadas no 1º semestre de 2026")}</span></div>
+    <div class="fact"><strong>6</strong><span>${t("granos: soja, maíz, trigo, girasol, cebada y sorgo","crops: soy, corn, wheat, sunflower, barley, sorghum","grãos: soja, milho, trigo, girassol, cevada e sorgo")}</span></div>
+    <div class="fact"><strong>5</strong><span>${t("oficinas en las principales plazas cerealeras","offices across key grain hubs","escritórios nas principais praças")}</span></div>
+  </div></div>
+</section>
+<section class="sec"><div class="wrap">
+  <div class="ticker-head"><h3>${t("Pizarra Rosario","Rosario spot prices","Pizarra Rosario")} <span>${PR.fecha}</span></h3><a class="link" href="#/precios">${t("Ver todos los precios","See all prices","Ver todos os preços")} →</a></div>
+  ${tickerHTML()}
+</div></section>
+<section class="sec alt"><div class="wrap">
+  ${head(t("Soluciones para cada etapa de la comercialización","What we do for your harvest","O que fazemos pela sua colheita"),t("Seis líneas de servicio que abarcan la operación de punta a punta: desde la definición del comprador y del momento de venta hasta la zarpada del buque y la liquidación de divisas.","Six services covering the whole operation, from deciding who to sell to and when until the vessel sails and the proceeds are settled.","Seis serviços que cobrem a operação completa, desde decidir para quem e quando vender até o navio zarpar e a divisa ser liquidada."))}
+  <div class="rowlist">${SV.map(s=>`<a href="#/servicios/${s.s}"><h3>${x(s.n)}</h3><p>${x(s.sh)}</p><span class="arr" aria-hidden="true">→</span></a>`).join("")}</div>
+</div></section>
+<section class="sec"><div class="wrap">
+  <div class="ticker-head"><h3>${t("Últimas noticias","Latest news","Últimas notícias")}</h3><a class="link" href="#/noticias">${t("Ver todas","See all","Ver todas")} →</a></div>
+  <div class="news">${newsCard(NEWS[0],true)}${newsCard(NEWS[2])}</div>
+</div></section>
+<section class="sec alt"><div class="wrap"><div class="band">
+  <div><h2>${t("Calcule el valor neto por tonelada","Work out what you keep per tonne","Calcule quanto sobra por tonelada")}</h2><p>${t("Del precio FOB al precio en chacra, en dólares y en pesos, con las alícuotas de derechos de exportación vigentes.","From FOB price to farm-gate price, in dollars and pesos, with current export duties.","Do preço FOB ao preço na fazenda, em dólares e em pesos, com as retenções vigentes.")}</p></div>
+  <a class="btn" href="#/calculadora">${t("Acceder a la calculadora","Open the calculator","Abrir a calculadora")}</a>
+</div></div></section>`;
+
+PAGES.nosotros=()=>`
+<section class="sec first"><div class="wrap">
+  <div class="about-grid">
+    <div class="about-text">
+      <h2 style="margin-bottom:28px">${t("Comercio exterior agroindustrial con visión federal.","Agribusiness trade advisory, built from the west.","Comércio exterior agroindustrial, pensado a partir do oeste.")}</h2>
+      <p>${t("Pampa Grain Consulting fue fundada en Mendoza en 2024 por un equipo de profesionales en comercio internacional. Asesoramos a productores, cooperativas, exportadores e importadores en materia de comercialización, apertura de nuevos mercados y gestión estratégica de operaciones de exportación.","Pampa Grain Consulting was founded in Mendoza in 2024 by a young team trained in international trade. We advise producers, cooperatives, exporters and importers on marketing, new market development and the strategic management of export operations.","A Pampa Grain Consulting nasceu em Mendoza em 2024, fundada por uma equipe jovem formada em comércio internacional. Assessoramos produtores, cooperativas, exportadores e importadores na comercialização, na abertura de novos mercados e na gestão estratégica de operações de exportação.")}</p>
+      <p>${t("La elección de Mendoza como sede responde a una convicción: el asesoramiento en comercio exterior agroindustrial no debe concentrarse exclusivamente en Buenos Aires o Rosario. Desde aquí desarrollamos una red de oficinas en las principales plazas cerealeras, próximas a las zonas de producción, a los puertos y a los organismos de decisión.","We chose Mendoza because we wanted to prove that agribusiness trade advisory doesn't have to be concentrated in Buenos Aires or Rosario. From here we built a network of offices in the main grain hubs, close to production, ports and decision-makers.","Escolhemos Mendoza porque queríamos mostrar que a assessoria em comércio exterior agroindustrial não precisa se concentrar em Buenos Aires ou Rosario. Daqui construímos uma rede de escritórios nas principais praças de grãos, perto da produção, dos portos e dos órgãos de decisão.")}</p>
+    </div>
+    <div class="mv">
+      <article class="m1"><h3>${t("Misión","Mission","Missão")}</h3><p>${t("Conectar a los productores y exportadores argentinos de granos con los mercados internacionales de mayor potencial, con asesoramiento estratégico, comercial y logístico que maximice la rentabilidad y la competitividad de cada operación, siempre con transparencia y calidad de servicio.","To connect Argentine grain producers and exporters with the highest-potential international markets through strategic, commercial and logistics advice that maximizes the profitability and competitiveness of every operation, always with transparency and quality of service.","Conectar produtores e exportadores argentinos de grãos aos mercados internacionais de maior potencial, com assessoria estratégica, comercial e logística que maximize a rentabilidade e a competitividade de cada operação, sempre com transparência e qualidade de serviço.")}</p></article>
+      <article class="m2"><h3>${t("Visión","Vision","Visão")}</h3><p>${t("Ser la consultora de referencia en comercio exterior agroindustrial del Cono Sur, reconocida por acompañar a sus clientes en la expansión hacia nuevos mercados y por aportar información precisa y oportuna para la toma de decisiones.","To be the leading agribusiness trade consultancy in the Southern Cone, recognized for supporting clients as they expand into new markets and for delivering accurate, timely information for better decisions.","Ser a consultoria de referência em comércio exterior agroindustrial no Cone Sul, reconhecida por acompanhar seus clientes na expansão para novos mercados e por oferecer informação precisa e oportuna para decidir melhor.")}</p></article>
+    </div>
+  </div>
+  <div class="goals">${[
+    [["Nuevos mercados","New markets","Novos mercados"],["Destinos de alto crecimiento en Asia, Medio Oriente y África.","High-growth destinations in Asia, the Middle East and Africa.","Destinos de alto crescimento na Ásia, Oriente Médio e África."]],
+    [["Estrategia comercial","Commercial strategy","Estratégia comercial"],["Definida según la ventana de cosecha, la logística portuaria y el precio internacional.","Based on harvest window, port logistics and world prices.","Conforme janela de colheita, logística portuária e preço internacional."]],
+    [["Información de mercado","Market information","Informação de mercado"],["Precios FAS, retenciones, volúmenes exportables y demanda externa.","FAS prices, export duties, exportable volumes and foreign demand.","Preços FAS, retenções, volumes exportáveis e demanda externa."]],
+    [["Contratos","Contracts","Contratos"],["Negociación de contratos FOB y CIF con contrapartes del exterior.","FOB and CIF contract negotiation with foreign counterparts.","Negociação de contratos FOB e CIF com contrapartes do exterior."]],
+    [["Alianzas","Partnerships","Parcerias"],["Relaciones de largo plazo con importadores estratégicos.","Long-term relationships with strategic importers.","Relações de longo prazo com importadores estratégicos."]]
+  ].map(g=>`<div class="goal"><h4>${x(g[0])}</h4><p>${x(g[1])}</p></div>`).join("")}</div>
+</div></section>
+<section class="sec alt"><div class="wrap">
+  ${head(t("Plan de desarrollo: primeros 18 meses","Our first 18 months","Nossos primeiros 18 meses"),t("Cuatro etapas, desde la constitución de la sociedad en Mendoza hasta la conformación de la red nacional de oficinas y el ingreso a nuevos mercados internacionales.","Four phases, from incorporating the company in Mendoza to a national office network and entry into new international markets.","Quatro fases, desde a constituição da empresa em Mendoza até a rede nacional de escritórios e a chegada a novos mercados internacionais."))}
+  <div class="timeline">${[
+    [["Meses 1 a 3","Months 1 to 3","Meses 1 a 3"],["Constitución y base operativa","Incorporation and operating base","Constituição e base operacional"],[["Constitución legal y habilitaciones","Legal incorporation and permits","Constituição legal e habilitações"],["Apertura de la Casa Central en Mendoza","Opening of the Mendoza head office","Abertura do escritório central em Mendoza"],["Equipo fundador y definición de servicios","Founding team and service design","Equipe fundadora e definição de serviços"]]],
+    [["Meses 4 a 6","Months 4 to 6","Meses 4 a 6"],["Posicionamiento en la zona núcleo","Anchoring in the core zone","Ancoragem na zona núcleo"],[["Oficina comercial en Rosario","Commercial office in Rosario","Escritório comercial em Rosario"],["Alianzas con terminales del Gran Rosario","Partnerships with Greater Rosario terminals","Parcerias com terminais da Grande Rosario"],["Primeros contratos de asesoría","First advisory contracts","Primeiros contratos de assessoria"]]],
+    [["Meses 7 a 12","Months 7 to 12","Meses 7 a 12"],["Expansión regional","Regional expansion","Expansão regional"],[["Oficinas en Córdoba y Santa Fe","Offices in Córdoba and Santa Fe","Escritórios em Córdoba e Santa Fe"],["Ampliación de la cartera de clientes en el interior productivo","More clients in the farming interior","Mais clientes no interior produtivo"],["Lanzamiento del servicio de inteligencia de mercados","Launch of market intelligence service","Lançamento da inteligência de mercados"]]],
+    [["Meses 13 a 18","Months 13 to 18","Meses 13 a 18"],["Consolidación nacional e internacional","National and international consolidation","Consolidação nacional e internacional"],[["Oficina corporativa en Buenos Aires","Corporate office in Buenos Aires","Escritório corporativo em Buenos Aires"],["Nuevos mercados en Asia, Medio Oriente y África","New markets in Asia, Middle East and Africa","Novos mercados na Ásia, Oriente Médio e África"],["Alianzas con importadores estratégicos","Partnerships with strategic importers","Parcerias com importadores estratégicos"]]]
+  ].map((p,i)=>`<div class="phase"><div class="num">${i+1}</div><div class="months">${x(p[0])}</div><h3>${x(p[1])}</h3><ul>${p[2].map(l=>`<li>${x(l)}</li>`).join("")}</ul></div>`).join("")}</div>
+</div></section>`;
+
+PAGES.equipo=()=>{
+ const team=[["EK","#24456B","Enzo Krapp",["Director Ejecutivo (CEO) y Socio Fundador","Chief Executive Officer & Founding Partner","Diretor Executivo (CEO) e Sócio Fundador"],["Licenciado en Comercio Internacional. Lidera la estrategia general, la relación con clientes clave y la negociación de los acuerdos de mayor envergadura. Antes de fundar la consultora se especializó en operaciones de exportación de commodities agrícolas.","BA in International Trade. Leads overall strategy, key client relationships and the negotiation of the largest deals. Before founding the firm he specialized in agricultural commodity export operations.","Bacharel em Comércio Internacional. Lidera a estratégia geral, o relacionamento com clientes-chave e a negociação dos maiores acordos. Antes de fundar a consultoria, especializou-se em operações de exportação de commodities agrícolas."]],
+  ["BG","#1E4A35","Brenda Genaulas",["Directora de Inteligencia de Mercados y Relaciones Internacionales","Director of Market Intelligence & International Relations","Diretora de Inteligência de Mercados e Relações Internacionais"],["Licenciada en Comercio Internacional. A cargo del monitoreo de precios FAS, tendencias de demanda y apertura de nuevos destinos, con foco en Asia y Medio Oriente. Coordina los vínculos con cámaras binacionales y misiones comerciales.","BA in International Trade. Oversees FAS price monitoring, demand trends and new destination development, with a focus on Asia and the Middle East. Coordinates ties with bilateral chambers and trade missions.","Bacharel em Comércio Internacional. Responsável pelo monitoramento de preços FAS, tendências de demanda e abertura de novos destinos, com foco na Ásia e no Oriente Médio. Coordena os vínculos com câmaras binacionais e missões comerciais."]],
+  ["BN","#6B5420","Brunela Nadalín",["Directora de Operaciones, Logística y Finanzas","Director of Operations, Logistics & Finance","Diretora de Operações, Logística e Finanças"],["Licenciada en Comercio Internacional. Responsable de la coordinación logística portuaria, la administración financiera y el seguimiento operativo de los contratos de exportación de cada cliente, del embarque a la liquidación.","BA in International Trade. Responsible for port logistics coordination, financial management and the operational follow-up of every client's export contracts, from loading to settlement.","Bacharel em Comércio Internacional. Responsável pela coordenação logística portuária, pela administração financeira e pelo acompanhamento operacional dos contratos de exportação de cada cliente, do embarque à liquidação."]]];
+ const off=[["Rosario, Santa Fe","Córdoba 1450, Rosario",["Nodo portuario, con enlace directo con las terminales del Gran Rosario.","Port hub, direct link with Greater Rosario terminals.","Hub portuário, ligação direta com os terminais da Grande Rosario."]],["Córdoba","Av. Colón 636, Córdoba",["Zona núcleo norte, originación de maíz, soja y trigo.","Northern core zone, corn, soy and wheat origination.","Zona núcleo norte, originação de milho, soja e trigo."]],["Santa Fe","Bv. Pellegrini 2745, Santa Fe",["Zona núcleo, originación y logística fluvial.","Core zone, origination and river logistics.","Zona núcleo, originação e logística fluvial."]],["Buenos Aires","Reconquista 1088, Microcentro",["Finanzas, comercio exterior y relaciones institucionales.","Finance, foreign trade and institutional relations.","Finanças, comércio exterior e relações institucionais."]]];
+ return `
+<section class="sec first"><div class="wrap">
+  ${head(t("Tres socios, tres áreas estratégicas","Three partners, three core areas","Três sócios, três áreas-chave"),t("Una estructura horizontal que nos permite dar respuesta ágil a los requerimientos comerciales, logísticos y de información de cada cliente.","A flat structure that lets us respond quickly to each client's commercial, logistics and information needs.","Uma estrutura horizontal que nos permite responder rápido às necessidades comerciais, logísticas e de informação de cada cliente."))}
+  <div class="team">${team.map(p=>`<article class="person"><div class="avatar" style="background:${p[1]}">${p[0]}</div><h3>${p[2]}</h3><div class="role">${x(p[3])}</div><p>${x(p[4])}</p></article>`).join("")}</div>
+  <div class="org"><h3>${t("Organigrama","Organization chart","Organograma")}</h3>
+    <div class="tree">
+      <div class="node top"><b>Enzo Krapp</b><span>${t("Director Ejecutivo (CEO)","Chief Executive Officer","Diretor Executivo (CEO)")}</span></div>
+      <div class="vline"></div>
+      <div class="branches">
+        <div class="branch"><div class="node dir"><b>Brenda Genaulas</b><span>${t("Inteligencia de Mercados y RR. II.","Market Intelligence & Int'l Relations","Inteligência de Mercados e RI")}</span></div><div class="vline"></div><div class="node"><b>${t("Equipo de analistas","Analyst team","Equipe de analistas")}</b><span>${t("Precios FAS y nuevos destinos","FAS prices & new destinations","Preços FAS e novos destinos")}</span></div></div>
+        <div class="branch"><div class="node dir"><b>Brunela Nadalín</b><span>${t("Operaciones, Logística y Finanzas","Operations, Logistics & Finance","Operações, Logística e Finanças")}</span></div><div class="vline"></div>
+          <div class="offices-row">
+            <div class="node off"><b>${t("Casa Central","Head office","Sede")}</b><span>Mendoza</span></div>
+            <div class="node off"><b>Rosario</b><span>${t("Nodo portuario","Port hub","Hub portuário")}</span></div>
+            <div class="node off"><b>Córdoba</b><span>${t("Zona núcleo norte","Northern core","Zona núcleo norte")}</span></div>
+            <div class="node off"><b>Santa Fe</b><span>${t("Originación","Origination","Originação")}</span></div>
+            <div class="node off"><b>Buenos Aires</b><span>${t("Finanzas","Finance","Finanças")}</span></div>
+          </div></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+<section class="sec alt"><div class="wrap">
+  ${head(t("Próximos a la producción y a los puertos","Close to production and ports","Perto da produção e dos portos"),t("La dirección general tiene sede en Mendoza, mientras que el comercio de granos se concentra en la zona núcleo y el Gran Rosario. Por ello contamos con oficinas propias en las principales plazas exportadoras.","We're headquartered in Mendoza, but the grain trade moves through the core zone and Greater Rosario. That's why we have our own offices in the main export hubs.","A direção fica em Mendoza, mas o comércio de grãos se move na zona núcleo e na Grande Rosario. Por isso temos escritórios próprios nas principais praças exportadoras."))}
+  <div class="offices">
+    <article class="office hq"><span class="badge">${t("Casa Central","Head office","Sede")}</span><h3>Mendoza</h3><div class="addr">${PIN}Av. Emilio Civit 320, Ciudad de Mendoza</div><p class="focus">${t("Dirección general, estrategia y administración.","General management, strategy and administration.","Direção geral, estratégia e administração.")}</p></article>
+    ${off.map(o=>`<article class="office"><h3>${o[0]}</h3><div class="addr">${PIN}${o[1]}</div><p class="focus">${x(o[2])}</p></article>`).join("")}
+  </div>
+</div></section>`;};
+
+PAGES.servicios=()=>{
+ const cl=[["Aceitera General Deheza","AGD",["Apertura de nuevos destinos para aceites y subproductos de soja.","New destinations for soybean oil and by-products.","Abertura de novos destinos para óleos e subprodutos de soja."]],["Asociación de Cooperativas Argentinas","ACA",["Estudios de mercado y acompañamiento comercial para cooperativas de la zona núcleo.","Market studies and commercial support for core-zone cooperatives.","Estudos de mercado e acompanhamento comercial para cooperativas da zona núcleo."]],["Agricultores Federados Argentinos","AFA",["Análisis de ventanas de precio FAS y estrategia de comercialización de cosecha.","FAS price window analysis and harvest marketing strategy.","Análise de janelas de preço FAS e estratégia de comercialização da colheita."]],["Viterra Argentina",x(["Complejo maíz y trigo","Corn & wheat","Complexo milho e trigo"]),["Relevamiento de demanda en mercados asiáticos.","Demand survey across Asian markets.","Levantamento de demanda nos mercados asiáticos."]],["COFCO International Argentina",x(["Logística","Logistics","Logística"]),["Asesoramiento específico en logística portuaria del Gran Rosario.","Targeted advice on Greater Rosario port logistics.","Assessoria pontual em logística portuária da Grande Rosario."]],["Molinos Agro",x(["Subproductos proteicos","Protein meals","Farelos proteicos"]),["Desarrollo de nuevos destinos de exportación.","Development of new export destinations.","Desenvolvimento de novos destinos de exportação."]]];
+ return `
+<section class="sec first"><div class="wrap">
+  ${head(t("Servicios","Services","Serviços"),t("Seis líneas de servicio que abarcan la operación completa. Consulte el detalle de cada una: alcance, destinatarios y un caso práctico cuantificado.","Six services covering the whole operation. Open each one to see what's included, who it's for and a worked example.","Seis serviços que cobrem a operação completa. Abra cada um para ver o que inclui, para quem é e um exemplo com números."))}
+  <div class="svc-grid">${SV.map(s=>`<a class="svc" href="#/servicios/${s.s}">${svcIcon(s.s)}<h3>${x(s.n)}</h3><p>${x(s.sh)}</p><span class="link">${t("Ver detalle","See details","Ver detalhes")} →</span></a>`).join("")}</div>
+</div></section>
+<section class="sec alt"><div class="wrap">
+  ${head(t("Proyectos en los que participamos","Projects we've worked on","Projetos dos quais participamos"),t("Desde nuestros inicios hemos desarrollado vínculos profesionales con productores, cooperativas y empresas del sector agroexportador argentino.","In our first years we built working relationships with producers, cooperatives and companies across Argentina's agri-export sector.","Em nossos primeiros anos desenvolvemos vínculos com produtores, cooperativas e empresas do setor agroexportador argentino."))}
+  <div class="clients">${cl.map(c=>`<div class="client"><h4>${c[0]}</h4><div class="sector">${c[1]}</div><p>${x(c[2])}</p></div>`).join("")}</div>
+</div></section>`;};
+
+function serviceDetail(slug){
+ const s=SV.find(v=>v.s===slug);if(!s)return PAGES.servicios();
+ return `<section class="sec first"><div class="wrap">
+  <div class="crumb"><a href="#/servicios">${t("Servicios","Services","Serviços")}</a> / ${x(s.n)}</div>
+  ${svcIcon(s.s)}
+  <h2 style="max-width:20ch">${x(s.n)}</h2>
+  <p class="lede" style="margin-top:20px">${x(s.in)}</p>
+  <div class="sd-grid">
+    <div><h3>${t("Alcance del servicio","What's included","O que inclui")}</h3><ul class="checks">${s.inc.map(i=>`<li>${x(i)}</li>`).join("")}</ul>
+      <h3 style="margin-top:36px">${t("Destinatarios","Who it's for","Para quem")}</h3><div class="tags">${s.for.map(f=>`<span class="tag">${x(f)}</span>`).join("")}</div></div>
+    <div><div class="example"><div class="lab">${t("Caso práctico · ejemplo ilustrativo","Example · illustrative case","Exemplo · caso ilustrativo")}</div><p>${x(s.ex)}</p></div>
+      <a class="btn" style="margin-top:22px" href="#/contacto">${t("Solicitar información sobre este servicio","Ask about this service","Consultar sobre este serviço")}</a></div>
+  </div>
+  <h3 style="margin-top:72px">${t("Metodología de trabajo","How we work","Como trabalhamos")}</h3>
+  <div class="steps">${STEPS.map((st,i)=>`<div class="step"><b>${i+1}</b><h4>${x(st[0])}</h4><p>${x(st[1])}</p></div>`).join("")}</div>
+ </div></section>
+ <section class="sec alt"><div class="wrap"><h3 style="margin-bottom:20px">${t("Otros servicios","Other services","Outros serviços")}</h3>
+  <div class="rowlist">${SV.filter(v=>v.s!==slug).map(v=>`<a href="#/servicios/${v.s}"><h3>${x(v.n)}</h3><p>${x(v.sh)}</p><span class="arr" aria-hidden="true">→</span></a>`).join("")}</div>
+ </div></section>`;
+}
+
+PAGES.mercado=()=>`
+<section class="sec first"><div class="wrap">
+  ${head(t("El mercado en la campaña 2025/26","The market in the 2025/26 season","O mercado na safra 2025/26"),t("La campaña consolidó a la Argentina como uno de los orígenes más competitivos del mundo para cereales y oleaginosas, con una cosecha proyectada de más de 165 millones de toneladas y un saldo exportable récord.","The season confirmed Argentina as one of the world's most competitive origins for grains and oilseeds, with a projected harvest of over 165 million tonnes and a record exportable surplus.","A safra consolidou a Argentina como uma das origens mais competitivas do mundo para cereais e oleaginosas, com colheita projetada de mais de 165 milhões de toneladas e saldo exportável recorde."))}
+  <div class="mkt-grid">
+    <div>
+      <div class="total-line"><strong>60,7 Mt</strong><span>${t("de granos y subproductos exportados en el primer semestre de 2026","of grains and by-products exported in the first half of 2026","de grãos e subprodutos exportados no primeiro semestre de 2026")}</span></div>
+      <div class="stack" role="img" aria-label="21 / 20,1 / 11,1 / 8,5 Mt"><div style="width:34.6%;background:#E8C77A">34,6%</div><div style="width:33.1%;background:#8FD1A8">33,1%</div><div style="width:18.3%;background:#8DB0D6">18,3%</div><div style="width:14%;background:#5F7A6E;color:#E4ECE6">14%</div></div>
+      <div class="legend"><span><i style="background:#E8C77A"></i>${x(GN.maiz)}</span><span><i style="background:#8FD1A8"></i>${t("Soja y derivados","Soy complex","Complexo soja")}</span><span><i style="background:#8DB0D6"></i>${x(GN.trigo)}</span><span><i style="background:#5F7A6E"></i>${t("Otros granos y subproductos","Other grains & by-products","Outros grãos e subprodutos")}</span></div>
+      <div class="crops">
+        <div class="crop"><h4>${x(GN.maiz)}<span class="chg up">+23%</span></h4><div class="vol">21 Mt</div><p>${t("Lideró los embarques, con un volumen 23% superior al promedio histórico, impulsado por la cosecha récord y por la sequía europea, que amplió la demanda de importación de la UE.","Led shipments, 23% above the historical average, driven by a record crop and the European drought that boosted EU import demand.","Liderou os embarques, 23% acima da média histórica, impulsionado pela colheita recorde e pela seca europeia que ampliou a demanda de importação da UE.")}</p></div>
+        <div class="crop"><h4>${x(GN.trigo)}<span class="chg up">+63%</span></h4><div class="vol">11,1 Mt</div><p>${t("Registró exportaciones 63% superiores a su promedio de los últimos cinco años, favorecidas por las disrupciones logísticas en el Mar Negro.","Exported 63% more than its five-year average, helped by logistics problems in the Black Sea.","Exportou 63% a mais que sua média dos últimos cinco anos, favorecido pelos problemas logísticos no Mar Negro.")}</p></div>
+        <div class="crop"><h4>${t("Soja y derivados","Soy complex","Complexo soja")}<span class="chg down">−3%</span></h4><div class="vol">20,1 Mt</div><p>${t("Mostró un ritmo algo más moderado que el año anterior, aunque se mantiene entre los complejos de mayor valor exportado.","A slightly slower pace than last year, but still one of the highest-value export complexes.","Ritmo um pouco mais moderado que no ano anterior, mas segue entre os complexos de maior valor exportado.")}</p></div>
+      </div>
+    </div>
+    <div class="lists">
+      <h3>${t("Factores de competitividad","What drives competitiveness","O que impulsiona a competitividade")}</h3>
+      <ul>
+        <li>${t("<b>Cosecha récord 2025/26</b>, con oferta abundante de maíz, trigo y girasol.","<b>Record 2025/26 harvest</b>, with abundant corn, wheat and sunflower supply.","<b>Colheita recorde 2025/26</b>, com oferta abundante de milho, trigo e girassol.")}</li>
+        <li>${t("<b>Precios internacionales sostenidos</b> por la sequía en Francia y las disrupciones en el Mar Negro.","<b>Firm world prices</b> due to drought in France and Black Sea disruptions.","<b>Preços internacionais firmes</b> pela seca na França e pelos problemas no Mar Negro.")}</li>
+        <li>${t("<b>Gran Rosario a niveles récord</b>, con más del 73% del ingreso de camiones a puerto.","<b>Greater Rosario at record levels</b>, handling over 73% of truck arrivals at port.","<b>Grande Rosario em níveis recorde</b>, com mais de 73% da entrada de caminhões no porto.")}</li>
+        <li>${t("<b>Más de 30 destinos nuevos</b> incorporados en el último año.","<b>Over 30 new destinations</b> added in the last year.","<b>Mais de 30 novos destinos</b> incorporados no último ano.")}</li>
+      </ul>
+      <h3>${t("Desafíos vigentes","Current challenges","Desafios atuais")}</h3>
+      <ul class="risks">
+        <li>${t("<b>Competencia de Brasil</b>, que aprovecha su escala para captar demanda adicional de maíz.","<b>Competition from Brazil</b>, using its scale to capture extra corn demand.","<b>Concorrência do Brasil</b>, que usa sua escala para captar demanda adicional de milho.")}</li>
+        <li>${t("<b>Presión fiscal</b> por derechos de exportación y costos logísticos internos.","<b>Tax pressure</b> from export duties and domestic logistics costs.","<b>Pressão fiscal</b> pelos direitos de exportação e custos logísticos internos.")}</li>
+        <li>${t("<b>Volatilidad de precios</b> y dependencia del clima en origen y en países competidores.","<b>Price volatility</b> and weather dependence at origin and in competing countries.","<b>Volatilidade de preços</b> e dependência do clima na origem e nos países concorrentes.")}</li>
+      </ul>
+      <p class="small-note"><i>${t("Fuentes: Bolsa de Comercio de Rosario (BCR) y Secretaría de Agricultura, Ganadería y Pesca. Datos del primer semestre de 2026.","Sources: Rosario Board of Trade (BCR) and Argentina's Secretariat of Agriculture, Livestock and Fisheries. H1 2026 data.","Fontes: Bolsa de Comércio de Rosario (BCR) e Secretaria de Agricultura, Pecuária e Pesca. Dados do primeiro semestre de 2026.")}</i></p>
+    </div>
+  </div>
+</div></section>
+<section class="sec alt"><div class="wrap">
+  ${head(t("Principales destinos del grano argentino","Where Argentine grain travels","Para onde viaja o grão argentino"),t("Los diez principales destinos concentran más del 53% del volumen exportado. Seleccione un país para conocer su perfil de compras.","The top ten destinations account for over 53% of exported volume. Tap a country to see what it buys.","Os dez principais destinos concentram mais de 53% do volume exportado. Toque em um país para ver o que ele compra."))}
+  <div class="dest-wrap">
+    <div><div class="map-box"><svg id="destMap" class="map-i" viewBox="0 0 1000 389" role="group" aria-label="Map"></svg></div><p class="small-note">${t("Origen de los embarques: sistema portuario del Gran Rosario.","Shipments originate from the Greater Rosario port system.","Origem dos embarques: sistema portuário da Grande Rosario.")}</p></div>
+    <aside class="panel" aria-live="polite"><div class="rank" id="dRank"></div><h3 id="dName"></h3><div class="region" id="dRegion"></div><p id="dDesc"></p><div class="tags" id="dTags"></div>
+      <div class="chips" id="chips">${D.map(d=>`<button type="button" class="chip" data-k="${d.k}">${x(d.n)}</button>`).join("")}</div></aside>
+  </div>
+</div></section>`;
+
+PAGES.precios=()=>{
+ const rows1=GK.map(k=>{const g=PR.grains[k],u=usdOf(k);return `<tr><td class="gr">${x(GN[k])}${g.est?'<span class="est">(e)</span>':""}</td><td class="num">${g.ars?"$ "+fmt(g.ars):"s/c"}</td><td class="num">${u?fmt(u,2):"–"}</td><td class="num">${g.var===null||g.var===undefined?"–":chg(g.var)}</td></tr>`;}).join("");
+ const rows2=GK.map(k=>{const g=PR.grains[k],f=fasOf(k),u=usdOf(k);return `<tr><td class="gr">${x(GN[k])}</td><td class="num">${g.fob?fmt(g.fob,0):"–"}${g.fobEst?'<span class="est">(e)</span>':""}</td><td class="num">${g.dex!==null?fmt(g.dex,1)+"%":"–"}</td><td class="num">${f!==null?fmt(f,2):"–"}</td><td class="num">${u?fmt(u,2):"–"}</td></tr>`;}).join("");
+ return `<section class="sec first"><div class="wrap">
+  ${head(t("Precios de los granos","Grain prices","Preços dos grãos"),t("Pizarra de la Cámara Arbitral de Cereales de Rosario, precios FOB de referencia y futuros de Chicago, en pesos y en dólares.","Rosario Grain Arbitration Chamber spot prices, reference FOB prices and Chicago futures, in pesos and dollars.","Pizarra da Câmara Arbitral de Cereais de Rosario, preços FOB de referência e futuros de Chicago, em pesos e em dólares."))}
+  <div class="price-grid">
+    <div>
+      <h3>${t("Pizarra Rosario","Rosario spot (pizarra)","Pizarra Rosario")} · ${esc(PR.fecha)}</h3>
+      <div class="tbl"><table><thead><tr><th>${t("Grano","Crop","Grão")}</th><th class="num">$/t</th><th class="num">US$/t</th><th class="num">${t("Var. diaria","Daily change","Var. diária")}</th></tr></thead><tbody>${rows1}</tbody></table></div>
+      <p class="small-note">${t("Mercadería disponible, pago contado, puesta sobre camión en zona Rosario. Conversión con el dólar BNA divisa comprador. (e) = precio estimado, sin cotización.","Spot delivery, cash payment, on truck in the Rosario area. USD conversion at the BNA wholesale buying rate. (e) = estimated price, no quote.","Mercadoria disponível, pagamento à vista, sobre caminhão na zona de Rosario. Conversão pelo dólar BNA divisa comprador. (e) = preço estimado, sem cotação.")}</p>
+      <h3 style="margin-top:44px">${t("Del FOB al FAS","From FOB to FAS","Do FOB ao FAS")}</h3>
+      <div class="tbl"><table><thead><tr><th>${t("Grano","Crop","Grão")}</th><th class="num">FOB US$/t</th><th class="num">DEX</th><th class="num">${t("FAS teórico","Theor. FAS","FAS teórico")} US$/t</th><th class="num">${t("Pizarra","Spot","Pizarra")} US$/t</th></tr></thead><tbody>${rows2}</tbody></table></div>
+      <p class="small-note">${t("FAS teórico = FOB − derecho de exportación − US$ 11/t de gastos de embarque. Alícuotas según Decreto 423/2026. FOB de cebada y sorgo estimados.","Theoretical FAS = FOB − export duty − US$ 11/t loading costs. Rates per Decree 423/2026. Barley and sorghum FOB are estimates.","FAS teórico = FOB − direito de exportação − US$ 11/t de gastos de embarque. Alíquotas conforme Decreto 423/2026. FOB de cevada e sorgo estimados.")}</p>
+    </div>
+    <div class="side">
+      <div class="card"><h4>${t("Dólar BNA divisa comprador","BNA wholesale USD (buy)","Dólar BNA divisa comprador")}</h4><div class="big">$ ${fmt(PR.tc,2)}</div><p class="small-note">${esc(PR.fecha)}</p></div>
+      <div class="card"><h4>${t("Futuros de Chicago (CBOT)","Chicago futures (CBOT)","Futuros de Chicago (CBOT)")}</h4>
+        <div class="kv"><span>${x(GN.soja)} · Nov 26</span><span>US$ ${fmt(PR.cbot.soja,2)}/t</span></div>
+        <div class="kv"><span>${x(GN.maiz)} · Dic 26</span><span>US$ ${fmt(PR.cbot.maiz,2)}/t</span></div>
+        <div class="kv"><span>${x(GN.trigo)} · Dic 26</span><span>US$ ${fmt(PR.cbot.trigo,2)}/t</span></div>
+        <p class="small-note">${esc(PR.cbot.fecha)}</p></div>
+      <div class="card"><h4>${t("Fuentes","Sources","Fontes")}</h4><ul class="srcs">
+        <li><a href="https://www.cac.bcr.com.ar/es/precios-de-pizarra" target="_blank" rel="noopener">BCR · ${t("Precios de pizarra","Spot prices","Preços de pizarra")}</a></li>
+        <li><a href="https://www.bolsadecereales.com/fob" target="_blank" rel="noopener">Bolsa de Cereales · FOB</a></li>
+        <li><a href="https://www.magyp.gob.ar/mercadosagropecuarios/precios.php" target="_blank" rel="noopener">SAGyP · ${t("Precios FOB y FAS","FOB and FAS prices","Preços FOB e FAS")}</a></li>
+        <li><a href="https://www.afascl.coop/afadiario/mercados-en-linea" target="_blank" rel="noopener">AFA · CBOT</a></li>
+      </ul>${fromTeam?`<p class="small-note">${t("Valores actualizados por el equipo de Pampa Grain.","Values entered by the Pampa Grain team.","Valores inseridos pela equipe da Pampa Grain.")}</p>`:""}</div>
+      <a class="btn" href="#/calculadora">${t("Usar estos precios en la calculadora","Use these prices in the calculator","Usar estes preços na calculadora")}</a>
+    </div>
+  </div>
+  <div id="adminBox"></div>
+</div></section>`;};
+
+PAGES.calculadora=()=>`
+<section class="sec first"><div class="wrap">
+  ${head(t("Cálculo del precio FAS y del precio en chacra","Calculate the FAS and farm-gate price","Calcule o preço FAS e o preço na fazenda"),t("El precio FAS expresa el valor del grano al costado del buque: el FOB neto de derechos de exportación y gastos de embarque. Al deducir además el flete hasta el puerto y los gastos de comercialización, se obtiene el precio que percibe el productor en chacra.","FAS is the grain's value alongside the vessel: FOB minus export duties and loading costs. Subtract freight to port and commercial costs and you get what the producer receives at the farm.","O FAS é o valor do grão ao lado do navio: o FOB menos os direitos de exportação e os gastos de embarque. Subtraindo o frete até o porto e os gastos comerciais, chega-se ao que o produtor recebe na fazenda."))}
+  <div class="calc">
+    <div class="calc-in">
+      <div class="field"><label for="cG">${t("Grano","Crop","Grão")}</label><select id="cG">${GK.map(k=>`<option value="${k}">${x(GN[k])}</option>`).join("")}</select></div>
+      <div class="two">
+        <div class="field"><label for="cFob">${t("Precio FOB (US$/t)","FOB price (US$/t)","Preço FOB (US$/t)")}</label><input id="cFob" type="number" min="0" step="1" inputmode="decimal"></div>
+        <div class="field"><label for="cDex">${t("Derecho de exportación (%)","Export duty (%)","Direito de exportação (%)")}</label><input id="cDex" type="number" min="0" max="100" step="0.5" inputmode="decimal"></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="cFb">${t("Gastos de embarque (US$/t)","Loading costs (US$/t)","Gastos de embarque (US$/t)")}</label><input id="cFb" type="number" min="0" step="0.5" inputmode="decimal"><div class="hint">Fobbing</div></div>
+        <div class="field"><label for="cFl">${t("Flete hasta el puerto (US$/t)","Freight to port (US$/t)","Frete até o porto (US$/t)")}</label><input id="cFl" type="number" min="0" step="1" inputmode="decimal"><div class="hint">${t("Aumenta con la distancia al puerto.","The farther from port, the higher.","Quanto mais longe do porto, mais caro.")}</div></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="cCo">${t("Gastos de comercialización (%)","Commercial costs (%)","Gastos comerciais (%)")}</label><input id="cCo" type="number" min="0" max="50" step="0.5" inputmode="decimal"><div class="hint">${t("Corretaje, acopio y otros.","Brokerage, elevator and other.","Corretagem, armazém e outros.")}</div></div>
+        <div class="field"><label for="cTc">${t("Tipo de cambio ($/US$)","Exchange rate ($/US$)","Câmbio ($/US$)")}</label><input id="cTc" type="number" min="0" step="1" inputmode="decimal"><div class="hint">${t("Dólar BNA divisa comprador","BNA wholesale buying rate","Dólar BNA divisa comprador")}</div></div>
+      </div>
+      <div class="field"><label for="cT">${t("Toneladas","Tonnes","Toneladas")}</label><input id="cT" type="number" min="0" step="100" inputmode="decimal"></div>
+      <button class="btn ghost" type="button" id="cR">${t("Restablecer valores de referencia","Reset to reference values","Voltar aos valores de referência")}</button>
+    </div>
+    <div class="calc-out" aria-live="polite">
+      <div class="outs">
+        <div><div class="out-l">${t("Precio FAS teórico","Theoretical FAS price","Preço FAS teórico")}</div><div class="out-v"><span id="oFas">0</span><small>US$/t</small></div><div class="out-ars" id="oFasA"></div></div>
+        <div><div class="out-l">${t("Precio en chacra","Farm-gate price","Preço na fazenda")}</div><div class="out-v"><span id="oCh">0</span><small>US$/t</small></div><div class="out-ars" id="oChA"></div></div>
+      </div>
+      <div class="bar" aria-hidden="true"><div id="b1" style="background:#8FD1A8"></div><div id="b2" style="background:#5F9C78"></div><div id="b3" style="background:#8DB0D6"></div><div id="b4" style="background:#E8C77A"></div></div>
+      <div class="blegend"><span><i style="background:#8FD1A8"></i>${t("Chacra","Farm","Fazenda")}</span><span><i style="background:#5F9C78"></i>${t("Flete y comercialización","Freight & commercial","Frete e comerciais")}</span><span><i style="background:#8DB0D6"></i>Fobbing</span><span><i style="background:#E8C77A"></i>DEX</span></div>
+      <div class="steps-calc" id="oSteps"></div>
+      <p class="calc-note">${t("Valores de referencia editables. Se recomienda verificar la alícuota vigente y la cotización del día antes de operar.","Editable reference values. Check the current rate and today's quote before trading.","Valores de referência editáveis. Verifique a alíquota vigente e a cotação do dia antes de operar.")}</p>
+    </div>
+  </div>
+  <h3 style="margin:64px 0 8px">${t("Comparación entre granos","Comparison across crops","Comparação entre grãos")}</h3>
+  <p class="small-note" style="margin:0 0 18px">${t("Calculado con los FOB de referencia de la sección Precios y con el flete, los gastos y el tipo de cambio ingresados arriba.","Using reference FOB prices from the Prices page and the freight, costs and exchange rate entered above.","Com os FOB de referência da página Preços e o frete, gastos e câmbio informados acima.")}</p>
+  <div class="tbl"><table><thead><tr><th>${t("Grano","Crop","Grão")}</th><th class="num">FOB</th><th class="num">DEX</th><th class="num">FAS US$/t</th><th class="num">${t("Chacra","Farm","Fazenda")} US$/t</th><th class="num">${t("Chacra","Farm","Fazenda")} $/t</th><th class="num">${t("Pizarra","Spot","Pizarra")} US$/t</th></tr></thead><tbody id="cmp"></tbody></table></div>
+</div></section>`;
+
+PAGES.noticias=()=>`<section class="sec first"><div class="wrap">
+  ${head(t("Noticias del mercado","Market news","Notícias do mercado"),t("Síntesis de las novedades más relevantes del mercado de granos, elaborada por nuestro equipo de análisis. Cada nota incluye el enlace a la fuente original.","The most relevant grain market news, summarized by our analysis team. Each item links to the original source.","O mais relevante do mercado de grãos, resumido pela nossa equipe de análise. Cada nota leva à fonte original."))}
+  <div class="news">${NEWS.map((n,i)=>newsCard(n,i===0)).join("")}</div>
+</div></section>`;
+
+PAGES.glosario=()=>`<section class="sec first"><div class="wrap">
+  ${head(t("Glosario de comercio exterior","Foreign trade glossary","Glossário de comércio exterior"),t("Definiciones concisas de los términos de uso habitual en el comercio internacional de granos.","The terms we use every day in the grain trade, explained in a few words.","Os termos que usamos todos os dias no comércio de grãos, explicados em poucas palavras."))}
+  <input class="gsearch" id="gq" type="search" placeholder="${t("Buscar un término","Search a term","Buscar um termo")}" aria-label="${t("Buscar un término","Search a term","Buscar um termo")}">
+  <div class="gl" id="gl">${GLOS.map(g=>`<div class="term" data-s="${esc((g[0]+" "+g[1]+" "+x(g[2])).toLowerCase())}"><h4>${g[0]}</h4>${g[1]?`<div class="full">${g[1]}</div>`:'<div class="full"></div>'}<p>${x(g[2])}</p></div>`).join("")}</div>
+  <p class="empty" id="gEmpty" hidden>${t("No se encontraron términos coincidentes. Intente con otra palabra.","No matching terms. Try another word.","Nenhum termo encontrado. Tente outra palavra.")}</p>
+</div></section>`;
+
+PAGES.contacto=()=>{
+ const F=[[["¿Qué diferencia hay entre precio FOB, CIF y FAS?","What's the difference between FOB, CIF and FAS?","Qual a diferença entre preço FOB, CIF e FAS?"],["FOB es el precio con la mercadería cargada a bordo en el puerto argentino. CIF adiciona el flete y el seguro hasta el puerto de destino. FAS es el valor al costado del buque: el FOB neto de derechos de exportación y gastos de embarque, y constituye la referencia más precisa del valor que percibe el productor.","FOB is the price with the goods loaded on board at the Argentine port. CIF adds freight and insurance to the destination port. FAS is the value alongside the vessel: FOB minus export duties and loading costs, the best reference for what the producer receives.","FOB é o preço com a mercadoria carregada a bordo no porto argentino. CIF soma o frete e o seguro até o porto de destino. FAS é o valor ao lado do navio: o FOB menos os direitos de exportação e os gastos de embarque. É a melhor referência do que o produtor recebe."]],
+  [["¿Trabajan con pequeños productores o solo con grandes exportadoras?","Do you work with small producers or only large exporters?","Trabalham com produtores pequenos ou só com grandes exportadoras?"],["Con ambos perfiles. Asesoramos a productores individuales, cooperativas, exportadoras e importadores. Cada servicio se adapta al volumen operado y a la etapa de desarrollo de cada cliente.","Both. We advise individual producers, cooperatives, exporters and importers. Each service is tailored to the client's volume and stage.","Com os dois. Assessoramos produtores individuais, cooperativas, exportadoras e importadores. O serviço é montado conforme o volume e a etapa de cada cliente."]],
+  [["¿Con qué granos trabajan?","Which crops do you cover?","Com quais grãos vocês trabalham?"],["Soja, maíz, trigo, girasol, cebada y sorgo, además de aceites y subproductos proteicos.","Soybeans, corn, wheat, sunflower, barley and sorghum, plus oils and protein meals.","Soja, milho, trigo, girassol, cevada e sorgo, além de óleos e farelos proteicos."]],
+  [["¿Cuál es la fuente de los precios publicados?","Where do the prices on this site come from?","De onde vêm os preços do site?"],["Pizarra de la Cámara Arbitral de Cereales de Rosario, precios FOB de referencia de la Bolsa de Cereales y la Secretaría de Agricultura, y futuros de Chicago. Cada tabla indica su fecha.","Spot prices from the Rosario Grain Arbitration Chamber, reference FOB prices from the Buenos Aires Grain Exchange and the Agriculture Secretariat, and Chicago futures. Each table shows its date.","Pizarra da Câmara Arbitral de Cereais de Rosario, preços FOB de referência da Bolsa de Cereales e da Secretaria de Agricultura, e futuros de Chicago. Cada tabela indica sua data."]],
+  [["¿Por qué una consultora de granos en Mendoza?","Why a grain consultancy in Mendoza?","Por que uma consultoria de grãos em Mendoza?"],["Porque el asesoramiento especializado no debe concentrarse exclusivamente en Buenos Aires o Rosario. La dirección general tiene sede en Mendoza y la operación diaria se apoya en nuestras oficinas de Rosario, Córdoba, Santa Fe y Buenos Aires.","Because advisory work doesn't have to be concentrated in Buenos Aires or Rosario. Management sits in Mendoza while day-to-day operations rely on our Rosario, Córdoba, Santa Fe and Buenos Aires offices.","Porque a assessoria não precisa se concentrar em Buenos Aires ou Rosario. A direção fica em Mendoza e a operação diária se apoia nos escritórios de Rosario, Córdoba, Santa Fe e Buenos Aires."]],
+  [["¿Cómo se inicia el trabajo en conjunto?","How do we start working together?","Como começamos a trabalhar juntos?"],["Complete el formulario con su consulta. Coordinaremos una reunión inicial para relevar su volumen, sus productos y sus objetivos, y luego le presentaremos una propuesta de trabajo.","Fill in the form with your enquiry. We'll set up a first meeting to understand your volume, crops and goals, and then propose a work plan.","Preencha o formulário com sua consulta. Marcamos uma primeira reunião para entender seu volume, seus grãos e seus objetivos e propomos um plano de trabalho."]]];
+ const types=[["Productor","Producer","Produtor"],["Cooperativa","Cooperative","Cooperativa"],["Exportador","Exporter","Exportador"],["Importador","Importer","Importador"],["Otro","Other","Outro"]];
+ return `<section class="sec first"><div class="wrap fc">
+  <div class="faq"><h2 style="margin-bottom:30px">${t("Preguntas frecuentes","Frequently asked questions","Perguntas frequentes")}</h2>${F.map(f=>`<details><summary>${x(f[0])}</summary><p>${x(f[1])}</p></details>`).join("")}</div>
+  <form class="form" id="form" novalidate>
+    <h3>${t("Formulario de contacto","Write to us","Escreva para nós")}</h3>
+    <p class="sub">${t("Describa su requerimiento y le responderemos dentro de las 48 horas hábiles.","Tell us what you need and we'll reply within 2 business days.","Conte o que você precisa e respondemos em até 2 dias úteis.")}</p>
+    <div class="two"><div class="field"><label for="fN">${t("Nombre y apellido","Full name","Nome completo")}</label><input id="fN" autocomplete="name"></div><div class="field"><label for="fM">Email</label><input id="fM" type="email" autocomplete="email"></div></div>
+    <div class="two"><div class="field"><label for="fC">${t("Empresa o cooperativa","Company or cooperative","Empresa ou cooperativa")}</label><input id="fC" autocomplete="organization"></div><div class="field"><label for="fT">${t("Perfil","Profile","Perfil")}</label><select id="fT">${types.map(o=>`<option>${x(o)}</option>`).join("")}</select></div></div>
+    <div class="field"><label for="fQ">${t("Su consulta","Your enquiry","Sua consulta")}</label><textarea id="fQ" rows="4"></textarea></div>
+    <button class="btn" type="submit">${t("Enviar consulta","Send enquiry","Enviar consulta")}</button>
+    <div class="err" id="fE">${t("Para enviar la consulta, complete su nombre, un correo electrónico válido y el detalle de su requerimiento.","Enter your name, a valid email and your enquiry to send it.","Preencha nome, um email válido e sua consulta para enviar.")}</div>
+    <div class="ok" id="fO">${t("Consulta enviada. Le responderemos a la dirección de correo electrónico indicada.","Enquiry sent. We'll reply to the email you provided.","Consulta enviada. Responderemos no email informado.")}</div>
+    <div class="contact-meta"><a href="mailto:contacto@pampagrainconsulting.com.ar">contacto@pampagrainconsulting.com.ar</a><span>Av. Emilio Civit 320, Ciudad de Mendoza</span></div>
+  </form>
+</div></section>`;};
+
+/* ================= AFTER-RENDER HOOKS ================= */
+function hookHome(){
+  const svg=document.getElementById("heroMap");const m=buildMap(svg,false);
+  if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+    Object.values(m.arcs).forEach((p,i)=>{const L=p.getTotalLength();p.style.strokeDasharray=L;p.style.strokeDashoffset=L;p.style.transition=`stroke-dashoffset 1.6s cubic-bezier(.4,.1,.2,1) ${.3+i*.12}s`;});
+    requestAnimationFrame(()=>requestAnimationFrame(()=>Object.values(m.arcs).forEach(p=>p.style.strokeDashoffset=0)));
+  }
+}
+function hookMercado(){DM=buildMap(document.getElementById("destMap"),true);document.querySelectorAll("#chips .chip").forEach(c=>c.addEventListener("click",()=>selDest(c.dataset.k)));selDest(curDest);}
+let CS=null;
+function hookCalc(){
+  const $=id=>document.getElementById(id);
+  const ids=["cFob","cDex","cFb","cFl","cCo","cTc","cT"];
+  if(!CS)CS={g:"maiz",fb:FOBBING,fl:20,co:2,t:1000};
+  $("cG").value=CS.g;
+  function loadRef(){const g=PR.grains[$("cG").value];$("cFob").value=g.fob||0;$("cDex").value=g.dex||0;}
+  function setDefaults(){$("cFb").value=CS.fb;$("cFl").value=CS.fl;$("cCo").value=CS.co;$("cTc").value=PR.tc;$("cT").value=CS.t;}
+  const num=v=>{const n=parseFloat(String(v).replace(",","."));return isFinite(n)&&n>0?n:0;};
+  function compute(fob,dex,fb,fl,co){const dx=fob*dex/100,fas=Math.max(fob-dx-fb,0),cm=fas*co/100,ch=Math.max(fas-fl-cm,0);return{dx,fas,cm,ch};}
+  function calc(){
+    const fob=num($("cFob").value),dex=Math.min(num($("cDex").value),100),fb=num($("cFb").value),fl=num($("cFl").value),co=Math.min(num($("cCo").value),50),tc=num($("cTc").value),tn=num($("cT").value);
+    CS={g:$("cG").value,fb,fl,co,t:tn};
+    const r=compute(fob,dex,fb,fl,co);
+    $("oFas").textContent=fmt(r.fas,2);$("oCh").textContent=fmt(r.ch,2);
+    $("oFasA").textContent=tc?"$ "+fmt(r.fas*tc)+" /t":"";$("oChA").textContent=tc?"$ "+fmt(r.ch*tc)+" /t":"";
+    const pc=v=>fob>0?Math.max(0,v/fob*100):0;
+    $("b1").style.width=pc(r.ch)+"%";$("b2").style.width=pc(Math.min(fl+r.cm,r.fas))+"%";$("b3").style.width=pc(Math.min(fb,fob-r.dx))+"%";$("b4").style.width=pc(r.dx)+"%";
+    const U=v=>"US$ "+fmt(v,2);
+    $("oSteps").innerHTML=[
+      [t("Precio FOB","FOB price","Preço FOB"),U(fob)],
+      [t("− Derecho de exportación","− Export duty","− Direito de exportação")+` (${fmt(dex,1)}%)`,"− "+U(r.dx)],
+      [t("− Gastos de embarque","− Loading costs","− Gastos de embarque"),"− "+U(fb)],
+      [t("= Precio FAS","= FAS price","= Preço FAS"),U(r.fas),1],
+      [t("− Flete hasta el puerto","− Freight to port","− Frete até o porto"),"− "+U(fl)],
+      [t("− Gastos de comercialización","− Commercial costs","− Gastos comerciais")+` (${fmt(co,1)}%)`,"− "+U(r.cm)],
+      [t("= Precio en chacra","= Farm-gate price","= Preço na fazenda"),U(r.ch),1],
+      [t("Valor en chacra de","Farm value of","Valor na fazenda de")+` ${fmt(tn)} t`,tc?"$ "+fmt(r.ch*tn*tc):U(r.ch*tn),1],
+      [t("Derechos de exportación de la operación","Export duties paid on the deal","Retenções pagas na operação"),U(r.dx*tn)]
+    ].map(s=>`<div class="sc${s[2]?" res":""}"><span>${s[0]}</span><span>${s[1]}</span></div>`).join("");
+    $("cmp").innerHTML=GK.map(k=>{const g=PR.grains[k];if(!g.fob)return"";const c=compute(g.fob,g.dex||0,fb,fl,co),u=usdOf(k);
+      return `<tr><td class="gr">${x(GN[k])}</td><td class="num">${fmt(g.fob,0)}</td><td class="num">${fmt(g.dex||0,1)}%</td><td class="num">${fmt(c.fas,2)}</td><td class="num">${fmt(c.ch,2)}</td><td class="num">${tc?"$ "+fmt(c.ch*tc):"–"}</td><td class="num">${u?fmt(u,2):"–"}</td></tr>`;}).join("");
+  }
+  $("cG").addEventListener("change",()=>{loadRef();calc();});
+  ids.forEach(i=>$(i).addEventListener("input",calc));
+  $("cR").addEventListener("click",()=>{CS={g:$("cG").value,fb:FOBBING,fl:20,co:2,t:1000};loadRef();setDefaults();calc();});
+  loadRef();setDefaults();calc();
+}
+function hookGlos(){const q=document.getElementById("gq"),items=[...document.querySelectorAll("#gl .term")],em=document.getElementById("gEmpty");
+  q.addEventListener("input",()=>{const v=q.value.trim().toLowerCase();let n=0;items.forEach(it=>{const s=!v||it.dataset.s.includes(v);it.hidden=!s;if(s)n++;});em.hidden=n>0;});}
+function hookForm(){const f=document.getElementById("form");f.addEventListener("submit",e=>{e.preventDefault();
+  const m=document.getElementById("fM"),ok=document.getElementById("fN").value.trim()&&m.value.trim()&&m.checkValidity()&&document.getElementById("fQ").value.trim();
+  document.getElementById("fE").classList.toggle("show",!ok);document.getElementById("fO").classList.toggle("show",!!ok);if(ok)f.reset();});}
+
+/* ================= ADMIN (runtime db) ================= */
+let DB=null,USER=null,CAN_EDIT=false,adminDirty=false;
+function adminHTML(){
+  const inp=(id,v,step)=>`<input id="${id}" type="number" step="${step||"any"}" inputmode="decimal" value="${v===null||v===undefined?"":v}">`;
+  return `<div class="admin"><h3>${t("Panel de actualización de precios","Price update panel","Painel de atualização de preços")}</h3>
+  <p class="sub">${t("Visible únicamente para usuarios con permiso de edición. Los valores guardados se publican para todos los visitantes del sitio.","Only people with edit access see this. Whatever you save here is shown to every visitor.","Só quem tem permissão de edição vê este painel. O que você salvar aqui aparece para todos os visitantes.")}</p>
+  <div class="admin-grid">
+    <div class="field"><label for="aF">${t("Fecha de la pizarra","Spot price date","Data da pizarra")}</label><input id="aF" value="${esc(PR.fecha)}"></div>
+    <div class="field"><label for="aTc">${t("Dólar BNA comprador","BNA USD buy rate","Dólar BNA comprador")}</label>${inp("aTc",PR.tc)}</div>
+    <div class="field"><label for="aCf">${t("Fecha CBOT","CBOT date","Data CBOT")}</label><input id="aCf" value="${esc(PR.cbot.fecha)}"></div>
+    <div class="field"><label for="aCs">CBOT ${x(GN.soja)}</label>${inp("aCs",PR.cbot.soja)}</div>
+    <div class="field"><label for="aCm">CBOT ${x(GN.maiz)}</label>${inp("aCm",PR.cbot.maiz)}</div>
+    <div class="field"><label for="aCt">CBOT ${x(GN.trigo)}</label>${inp("aCt",PR.cbot.trigo)}</div>
+  </div>
+  <div class="tbl" style="margin-top:8px"><table><thead><tr><th>${t("Grano","Crop","Grão")}</th><th>${t("Pizarra $/t","Spot $/t","Pizarra $/t")}</th><th>${t("Var. %","Change %","Var. %")}</th><th>FOB US$/t</th><th>DEX %</th></tr></thead><tbody>
+  ${GK.map(k=>{const g=PR.grains[k];return `<tr><td class="gr">${x(GN[k])}</td><td>${inp("a_"+k+"_ars",g.ars)}</td><td>${inp("a_"+k+"_var",g.var)}</td><td>${inp("a_"+k+"_fob",g.fob)}</td><td>${inp("a_"+k+"_dex",g.dex)}</td></tr>`;}).join("")}
+  </tbody></table></div>
+  <p class="small-note">${t("Deje en blanco los campos sin cotización.","Leave blank anything without a quote.","Deixe em branco o que não tiver cotação.")}</p>
+  <div class="ctas" style="margin-top:18px"><button class="btn" id="aSave" type="button">${t("Guardar precios","Save prices","Salvar preços")}</button></div>
+  <p class="msg" id="aMsg" aria-live="polite"></p></div>`;
+}
+function hookAdmin(){
+  const box=document.getElementById("adminBox");if(!box||!CAN_EDIT||!DB)return;
+  box.innerHTML=adminHTML();adminDirty=false;
+  box.querySelectorAll("input").forEach(i=>i.addEventListener("input",()=>{adminDirty=true;}));
+  const v=id=>document.getElementById(id).value;
+  document.getElementById("aSave").addEventListener("click",async e=>{
+    const b=e.currentTarget,msg=document.getElementById("aMsg");b.disabled=true;msg.textContent="";
+    const data={fecha:v("aF").trim().slice(0,20),tc:nOrNull(v("aTc")),cbot:{fecha:v("aCf").trim().slice(0,20),soja:nOrNull(v("aCs")),maiz:nOrNull(v("aCm")),trigo:nOrNull(v("aCt"))},grains:{}};
+    GK.forEach(k=>{data.grains[k]={ars:nOrNull(v("a_"+k+"_ars")),var:nOrNull(v("a_"+k+"_var")),fob:nOrNull(v("a_"+k+"_fob")),dex:nOrNull(v("a_"+k+"_dex")),est:false,fobEst:false};});
+    try{await DB.doc("data/precios").set(data);adminDirty=false;PR=normalize(data);fromTeam=true;render(false);
+      const m2=document.getElementById("aMsg");if(m2){m2.style.color="#8FD1A8";m2.textContent=t("Precios guardados y publicados para todos los visitantes.","Prices saved. Every visitor now sees them.","Preços salvos. Todos os visitantes já os veem.");}
+    }catch(err){b.disabled=false;msg.style.color="#F0AA90";msg.textContent=(err&&err.code==="invalid_argument")?t("Su usuario no tiene permiso para guardar precios.","Your account isn't allowed to save prices.","Sua conta não tem permissão para salvar preços."):t("No fue posible guardar los precios. Verifique su conexión e intente nuevamente.","Prices couldn't be saved. Check your connection and try again.","Não foi possível salvar os preços. Verifique sua conexão e tente de novo.");}
+  });
+}
+async function initRuntime(){
+  if(!window.claude||typeof window.claude.use!=="function")return;
+  try{
+    DB=await window.claude.use("db");USER=await window.claude.use("user");
+    if(USER){try{CAN_EDIT=await USER.canEdit();}catch(e){CAN_EDIT=false;}}
+    if(DB){DB.doc("data/precios").onSnapshot(s=>{
+        if(s.exists){PR=normalize(s.data());fromTeam=true;}
+        const r=route().p;if(!adminDirty&&(r==="inicio"||r==="precios"))render(false);
+      },()=>{});}
+    if(CAN_EDIT&&route().p==="precios")hookAdmin();
+  }catch(e){}
+}
+
+/* ================= ROUTER ================= */
+function route(){const h=location.hash.replace(/^#\/?/,"");const[p,a]=h.split("/");return{p:(PAGES[p]?p:"inicio"),a};}
+const app=document.getElementById("app"),links=document.getElementById("links"),menuBtn=document.getElementById("menuBtn");
+function renderShell(r){
+  links.innerHTML=NAV.map(n=>`<a href="#/${n[0]}" class="${r.p===n[0]?"on":""}">${x(n[1])}</a>`).join("");
+  document.getElementById("navCta").textContent=t("Contáctenos","Get in touch","Fale conosco");
+  document.querySelectorAll(".langs button").forEach(b=>{b.classList.toggle("on",+b.dataset.l===LI);b.setAttribute("aria-pressed",+b.dataset.l===LI);});
+  document.documentElement.lang=["es","en","pt"][LI];
+  document.getElementById("foot").innerHTML=`<div class="wrap"><div class="foot">
+    <div><a class="brand" href="#/inicio"><span class="brand-txt"><b>Pampa Grain</b><small>CONSULTING</small></span></a><p style="margin-top:16px;max-width:36ch">${t("Consultoría estratégica en comercio internacional de granos argentinos.","Strategic consulting in international trade of Argentine grain.","Consultoria estratégica em comércio internacional de grãos argentinos.")}</p></div>
+    <div><h4>${t("Empresa","Company","Empresa")}</h4><ul>${NAV.slice(0,4).map(n=>`<li><a href="#/${n[0]}">${x(n[1])}</a></li>`).join("")}</ul></div>
+    <div><h4>${t("Herramientas","Tools","Ferramentas")}</h4><ul>${NAV.slice(4).map(n=>`<li><a href="#/${n[0]}">${x(n[1])}</a></li>`).join("")}</ul></div>
+    <div><h4>${t("Oficinas","Offices","Escritórios")}</h4><ul><li>Mendoza</li><li>Rosario</li><li>Córdoba</li><li>Santa Fe</li><li>Buenos Aires</li></ul></div>
+  </div><div class="legal"><span>© 2026 Pampa Grain Consulting · www.pampagrainconsulting.com.ar</span><span>${t("Proyecto académico de Práctica Profesional, Licenciatura en Comercio Internacional, Universidad Champagnat.","Academic project for the Professional Practice course, BA in International Trade, Universidad Champagnat.","Projeto acadêmico de Prática Profissional, Bacharelado em Comércio Internacional, Universidad Champagnat.")}</span></div></div>`;
+}
+const TITLES={inicio:["Comercio internacional de granos","International grain trade","Comércio internacional de grãos"]};
+function render(scrollTop){
+  const r=route();renderShell(r);
+  app.innerHTML=(r.p==="servicios"&&r.a)?serviceDetail(r.a):PAGES[r.p]();
+  const nav=NAV.find(n=>n[0]===r.p);document.title="Pampa Grain Consulting | "+(nav?x(nav[1]):x(TITLES.inicio));
+  DM=null;
+  if(r.p==="inicio")hookHome();
+  if(r.p==="mercado")hookMercado();
+  if(r.p==="calculadora")hookCalc();
+  if(r.p==="glosario")hookGlos();
+  if(r.p==="contacto")hookForm();
+  if(r.p==="precios")hookAdmin();
+  links.classList.remove("open");menuBtn.setAttribute("aria-expanded","false");
+  if(scrollTop)window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",()=>render(true));
+menuBtn.addEventListener("click",()=>{const o=links.classList.toggle("open");menuBtn.setAttribute("aria-expanded",o);});
+document.querySelectorAll(".langs button").forEach(b=>b.addEventListener("click",()=>{LI=+b.dataset.l;try{localStorage.setItem("pgc-lang",String(LI));}catch(e){}render(false);}));
+render(true);
+initRuntime();
+})();
+</script>
+</body>
+</html>
